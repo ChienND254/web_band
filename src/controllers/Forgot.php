@@ -12,13 +12,22 @@ class Forgot extends Controller
 
     public function index()
     {
-        $this->data['err_email'] = "";
-        $this->data['success'] = "";
-        $this->render('forgot/forgot', $this->data);
+        if (isset($_SESSION['id'])) {
+            Header("Location:" . _WEB_ROOT . "/home");
+            // session_destroy();
+        } else {
+            $this->data['err_email'] = "";
+            $this->data['success'] = "";
+            $this->render('forgot/forgot', $this->data);
+        }
     }
 
     public function authenticate()
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            Header("Location:" . _WEB_ROOT . "/forgot");
+            die;
+        }
         $email = $_POST['email'];
         $user = ($this->model_user->findByEmail($email))[0];
         if ($email == '') {

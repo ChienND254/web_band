@@ -11,6 +11,11 @@ class Login extends Controller
 
     public function authenticate()
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            Header("Location:" . _WEB_ROOT . "/login");
+            die;
+        }
+        // if ($_POST[''])
         $email = $_POST['email'];
         $password = $_POST['password'];
         $user = $this->model_user->findByEmail($email);
