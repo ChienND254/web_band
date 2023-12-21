@@ -34,16 +34,14 @@
                     if ($err_password != '') {
                     ?>
                         <div class="alert alert-danger form-title" role="alert">
-                            <?php echo $err_emerr_passwordail;
-                            ?>
+                            <?php echo $err_password;?>
                         </div>
                     <?php
                     }
                     if ($err_confirm_password != '') {
                     ?>
                         <div class="alert alert-danger form-title" role="alert">
-                            <?php echo $err_confirm_password;
-                            ?>
+                            <?php echo $err_confirm_password;?>
                         </div>
                     <?php
                     }
