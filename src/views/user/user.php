@@ -33,7 +33,7 @@
     <div class="container-fluid d-flex" style="height: 100vh; padding: 0">
         <div class="col-md-3 menu-container">
             <div class="user-info d-flex flex-wrap justify-content-center">
-                <img class="avatar-img" src="<?php echo _WEB_ROOT; ?>/user/readfile/<?php echo $user_context['img_url'] ?>" alt="">
+                <img class="avatar-img" src="<?php echo _WEB_ROOT; ?>/user/readfile/<?php echo $user_context['image'] ?>" alt="">
                 <div style="width: 100%; text-align: center;">Hello <?php echo $user_context['name'] ?></div>
             </div>
             <div class="menu-list">

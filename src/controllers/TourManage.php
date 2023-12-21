@@ -240,7 +240,7 @@ class TourManage extends Controller
                 $sub_array[] = $row["description"];
                 $sub_array[] = '<button type="button" name="view_tour" class="btn btn-info btn-sm view_tour" id="' . $row["id"] . '">View</button>';
                 $sub_array[] = '<button type="button" name="edit_tour" class="btn btn-primary btn-sm edit_tour" id="' . $row["id"] . '">Edit</button>';
-                $sub_array[] = '<button type="button" name="delete_tour" class="btn btn-danger btn-sm delete_tour" id="' . $row["id"] . '">Delete</button>';
+                $sub_array[] = '<button type="button" name="delete_tour" class="btn btn-danger btn-sm delete_tour" id="' . $row["id"] . '" disabled>Delete</button>';
                 $data1[] = $sub_array;
             }
             $output = array(

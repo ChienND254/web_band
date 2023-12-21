@@ -19,7 +19,7 @@ class OrderModel extends Model{
 
     public function deleteModel($id)
     {
-        return parent::delete($this->_table, $id);
+        return parent::delete_row($this->_table, $id);
     }
 
     public function getListModel($condition = '')

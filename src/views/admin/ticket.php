@@ -18,10 +18,11 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tour_ID</th>
-                            <th>Ảnh</th>
+                            <th>Địa chỉ tour</th>
+                            <th>Ảnh Tour</th>
                             <th>Giá vé</th>
-                            <th>Địa chỉ</th>
+                            <th>Số lượng</th>
+                            <th>Tình trạng</th>
                             <th>Ngày</th>
                             <th>Thời gian diễn ra</th>
                             <th>Miêu tả</th>
@@ -52,47 +53,31 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="name" class="col-form-label">Tên người dùng<span class="text-danger">*</span></label>
-                        <input id="ticket_name" type="text" name="ticket_name" class="form-control" required>
-                        <span id="error_ticket_name" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="col-form-label">Email Address<span class="text-danger">*</span></label>
-                        <input id="ticket_email" type="email" name="ticket_email" class="form-control" required>
-                        <span id="error_ticket_email" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="psw1" class="col-form-label">Mật khẩu<span class="text-danger">*</span></label>
-                        <input id="ticket_psw1" type="password" name="psw1" class="form-control" required>
-                        <span id="error_ticket_password1" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="psw2" class="col-form-label">Nhập lại mật khẩu<span class="text-danger">*</span></label>
-                        <input id="ticket_psw2" type="password" name="psw2" class="form-control" required>
-                        <span id="error_ticket_password2" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="phone" class="col-form-label">Phone<span class="text-danger">*</span></label>
-                        <input id="ticket_phone" type="text" name="ticket_phone" class="form-control" required>
-                        <span id="error_ticket_phone" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="phone" class="col-form-label">Role<span class="text-danger">*</span></label>
-                        <select class="form-control" id="ticket_role" name="ticket_role">
-                            <option val="ROLE_ticket">ROLE_ticket</option>
-                            <option val="ROLE_MEMBER">ROLE_MEMBER</option>
+                        <label for="tour" class="col-form-label">Tour<span class="text-danger">*</span></label>
+                        <select class="form-control" id="ticket_tour" name="ticket_tour">
+                            <option value="">Select Tour</option>
                         </select>
+                        <span id="error_ticket_tour" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
-                        <label for="address" class="col-form-label">Địa chỉ:</label>
-                        <textarea id="ticket_address" type="text" name="ticket_address" class="form-control" required></textarea>
-                        <span id="error_ticket_address" class="text-danger"></span>
+                        <label for="time" class="col-form-label">Thời gian bắt đầu<span class="text-danger">*</span></label>
+                        <input id="ticket_time" type="time" name="ticket_time" class="form-control" required>
+                        <span id="error_ticket_time" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
-                        <label for="image" class="col-form-label">Image<span class="text-danger">*</span></label>
-                        <input type="file" name="ticket_image" id="ticket_image" required><br>
-                        <span class="text-muted">Chỉ cho phép .jpg và .png</span><br>
-                        <span id="error_ticket_image" class="text-danger"></span>
+                        <label for="time_to" class="col-form-label">Thời gian kết thúc<span class="text-danger">*</span></label>
+                        <input id="ticket_time_to" type="time" name="ticket_time_to" class="form-control" required>
+                        <span id="error_ticket_time_to" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="col-form-label">Số lượng vé<span class="text-danger">*</span></label>
+                        <input id="ticket_quantity" type="number" name="ticket_quantity" class="form-control" required>
+                        <span id="error_ticket_quantity" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="col-form-label">Giá($)<span class="text-danger">*</span></label>
+                        <input id="ticket_price" type="number" name="ticket_price" class="form-control" required>
+                        <span id="error_ticket_price" class="text-danger"></span>
                     </div>
 
                 </div>
@@ -116,44 +101,25 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="name" class="col-form-label">Tên người dùng<span class="text-danger">*</span></label>
-                        <input id="ticket_name_edit" type="text" name="ticket_name" class="form-control" required>
-                        <span id="error_ticket_name_edit" class="text-danger"></span>
+                        <label for="time" class="col-form-label">Thời gian bắt đầu<span class="text-danger">*</span></label>
+                        <input id="ticket_time_edit" type="time" name="ticket_time" class="form-control" required>
+                        <span id="error_ticket_time_edit" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="col-form-label">Email Address<span class="text-danger">*</span></label>
-                        <input id="ticket_email_edit" type="email" name="ticket_email" class="form-control" required>
+                        <label for="time_to" class="col-form-label">Thời gian kết thúc<span class="text-danger">*</span></label>
+                        <input id="ticket_time_to_edit" type="time" name="ticket_time_to" lang="en" class="form-control" required>
+                        <span id="error_ticket_time_to_edit" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
-                        <label for="psw1" class="col-form-label">Mật khẩu<span class="text-danger">*</span></label>
-                        <input id="ticket_psw1_edit" type="password" name="psw1" class="form-control">
-                        <span id="error_ticket_password1_edit" class="text-danger"></span>
+                        <label for="quantity" class="col-form-label">Số lượng vé<span class="text-danger">*</span></label>
+                        <input id="ticket_quantity_edit" type="number" name="ticket_quantity" class="form-control" required>
+                        <span id="error_ticket_quantity_edit" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
-                        <label for="phone" class="col-form-label">Phone<span class="text-danger">*</span></label>
-                        <input id="ticket_phone_edit" type="text" name="ticket_phone" class="form-control" required>
-                        <span id="error_ticket_phone_edit" class="text-danger"></span>
+                        <label for="price" class="col-form-label">Giá/Vé ($)<span class="text-danger">*</span></label>
+                        <input id="ticket_price_edit" type="number" name="ticket_price" class="form-control" required>
+                        <span id="error_ticket_price_edit" class="text-danger"></span>
                     </div>
-                    <div class="mb-3">
-                        <label for="phone" class="col-form-label">Role<span class="text-danger">*</span></label>
-                        <select class="form-control" id="ticket_role_edit" name="ticket_role">
-                            <option val="ROLE_ticket">ROLE_ticket</option>
-                            <option val="ROLE_MEMBER">ROLE_MEMBER</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="col-form-label">Địa chỉ:</label>
-                        <textarea id="ticket_address_edit" type="text" name="ticket_address" class="form-control" required></textarea>
-                        <span id="error_ticket_address_edit" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="image" class="col-form-label">Image<span class="text-danger">*</span></label>
-                        <input type="file" name="ticket_image" id="ticket_image_edit" value=""><br>
-                        <span class="text-muted">Chỉ cho phép .jpg và .png</span><br>
-                        <span id="error_ticket_image_edit" class="text-danger"></span><br>
-                        <span id="ticket_image_current"></span>
-                    </div>
-
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" id="ticket_id" value="" />
@@ -170,7 +136,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h4 class="modal-title">Thông tin người dùng</h4>
+                <h4 class="modal-title">Thông tin vé</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body" id="ticket_details">
@@ -182,24 +148,24 @@
                     <div class="col-md-9">
                         <table class="table">
                             <tr>
-                                <th>Họ và tên</th>
-                                <td id="name"></td>
-                            </tr>
-                            <tr>
-                                <th>Email Address</th>
-                                <td id="email"></td>
-                            </tr>
-                            <tr>
-                                <th>Số điện thoại</th>
-                                <td id="phone"></td>
-                            </tr>
-                            <tr>
-                                <th>Vai trò</th>
-                                <td id="role"></td>
-                            </tr>
-                            <tr>
                                 <th>Địa chỉ</th>
                                 <td id="address"></td>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <td id="date"></td>
+                            </tr>
+                            <tr>
+                                <th>Miêu tả</th>
+                                <td id="description"></td>
+                            </tr>
+                            <tr>
+                                <th>Giá</th>
+                                <td id="price"></td>
+                            </tr>
+                            <tr>
+                                <th>Time</th>
+                                <td id="time_ticket"></td>
                             </tr>
                         </table>
                     </div>
@@ -248,27 +214,31 @@
                 }
             },
             "columnDefs": [{
-                "targets": [2, 7,8,9,10],
+                "targets": [2, 6,7,8,9,10],
                 "orderable": false,
             }, ],
         });
 
         function clear_field() {
             $('#add_ticket_form')[0].reset();
-            $('#error_ticket_name').text('');
-            $('#error_ticket_email').text('');
-            $('#error_ticket_password1').text('');
-            $('#error_ticket_password2').text('');
-            $('#error_ticket_address').text('');
-            $('#error_ticket_phone').text('');
-            $('#error_ticket_image').text('');
+            $('#error_ticket_time').text('');
+            $('#error_ticket_time_to').text('');
+            $('#error_ticket_tour').text('');          
+            $('#error_ticket_price').text('');
         }
         $('#add_button').click(function() {
             $('#modal_title').text("Thêm vé");
             $('#button_action').val('Thêm vé');
             $('#action').val('Add');
             $('#myModal').modal('show');
-
+            $.ajax({
+                url: "<?= _WEB_ROOT ?>/ticketManage/create",
+                method: "POST",
+                data: {action : 'tour_list'},
+                success: function (html) {
+                    $('#ticket_tour').html(html);
+                }
+            });
             clear_field();
         });
         $('#add_ticket_form').on('submit', function(event) {
@@ -286,47 +256,32 @@
                 },
                 success: function(data) {
                     $('#button_action').attr('disabled', false);
-                    $('#button_action').val("Thêm người dùng");
+                    $('#button_action').val("Thêm người vé");
                     if (data.success) {
                         $('#message_operation').html('<div class="alert alert-success">' + data.success + '</div>');
                         $('#myModal').modal('hide');
                         table.ajax.reload();
                     }
                     if (data.error) {
-                        if (data.error_ticket_name != '') {
-                            $('#error_ticket_name').text(data.error_ticket_name);
+                        if (data.error_ticket_price != '') {
+                            $('#error_ticket_price').text(data.error_ticket_price);
                         } else {
-                            $('#error_ticket_name').text('');
+                            $('#error_ticket_price').text('');
                         }
-                        if (data.error_ticket_email != '') {
-                            $('#error_ticket_email').text(data.error_ticket_email);
+                        if (data.error_ticket_time != '') {
+                            $('#error_ticket_time').text(data.error_ticket_time);
                         } else {
-                            $('#error_ticket_email').text('');
+                            $('#error_ticket_time').text('');
                         }
-                        if (data.error_ticket_password1 != '') {
-                            $('#error_ticket_password1').text(data.error_ticket_password1);
+                        if (data.error_ticket_time_to != '') {
+                            $('#error_ticket_time_to').text(data.error_ticket_time_to);
                         } else {
-                            $('#error_ticket_password1').text('');
+                            $('#error_ticket_time_to').text('');
                         }
-                        if (data.error_ticket_password2 != '') {
-                            $('#error_ticket_password2').text(data.error_ticket_password2);
+                        if (data.error_ticket_tour != '') {
+                            $('#error_ticket_tour').text(data.error_ticket_tour);
                         } else {
-                            $('#error_ticket_password2').text('');
-                        }
-                        if (data.error_ticket_phone != '') {
-                            $('#error_ticket_phone').text(data.error_ticket_phone);
-                        } else {
-                            $('#error_ticket_phone').text('');
-                        }
-                        if (data.error_ticket_address != '') {
-                            $('#error_ticket_address').text(data.error_ticket_address);
-                        } else {
-                            $('#error_ticket_address').text('');
-                        }
-                        if (data.error_ticket_image != '') {
-                            $('#error_ticket_image').text(data.error_ticket_image);
-                        } else {
-                            $('#error_ticket_image').text('');
+                            $('#error_ticket_tour').text('');
                         }
                     }
                 }
@@ -354,18 +309,18 @@
                 },
                 success: function(data) {
                     $('#image').attr("src", data.ticket_image);
-                    $('#name').text(data.ticket_name);
-                    $('#email').text(data.ticket_email);
-                    $('#phone').text(data.ticket_phone);
-                    $('#role').text(data.ticket_role);
+                    $('#date').text(data.ticket_date);
                     $('#address').text(data.ticket_address);
+                    $('#description').text(data.ticket_description);
+                    $('#price').text(data.ticket_price + "$");
+                    $('#time_ticket').text(data.ticket_time + " - " + data.ticket_time_to);
                     $('#viewModal').modal('show');
                 }
             });
         });
         $(document).on('click', '.edit_ticket', function() {
             ticket_id = $(this).attr('id');
-            $('#modal_title_edit').text("Thay đổi thông tin người dùng");
+            $('#modal_title_edit').text("Thay đổi thông tin vé");
             $('#button_action_edit').val('Thay đổi');
             $('#ticket_id').val(ticket_id);
             $('#action_edit').val('Edit');
@@ -378,13 +333,9 @@
                 },
                 dataType: "json",
                 success: function(data) {
-                    $('#ticket_name_edit').val(data.ticket_name);
-                    $('#ticket_email_edit').val(data.ticket_email);
-                    $('#ticket_email_edit').attr('disabled', "disabled");
-                    $('#ticket_phone_edit').val(data.ticket_phone);
-                    $('#ticket_role_edit').val(data.ticket_role);
-                    $('#ticket_address_edit').val(data.ticket_address);
-                    $('#ticket_image_current').html('<img src="' + data.ticket_image + '" class="img-thumbnail" width="50" />');
+                    $('#ticket_time_edit').val(data.ticket_time);
+                    $('#ticket_time_to_edit').val(data.ticket_time_to);
+                    $('#ticket_price_edit').val(data.ticket_price);
                     $('#action_edit').val('Edit');
                     $('#editModal').modal('show');
                 }

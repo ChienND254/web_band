@@ -365,7 +365,7 @@
             });
 
         });
-        $(document).on('click', '.delete_tour1', function() {
+        $(document).on('click', '.delete_tour', function() {
             tour_id = $(this).attr('id');
             $('#deleteModal').modal('show');
             $('#confirm_button').click(function() {
