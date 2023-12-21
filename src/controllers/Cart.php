@@ -39,7 +39,7 @@ class Cart extends Controller
 
         $this->data['cart_list'] = $cart;
 
-        $this->render('cart/cart', $this->data);
+        $this->render('cart/cart2', $this->data);
     }
 
     public function create()
@@ -80,7 +80,7 @@ class Cart extends Controller
             }
         }
 
-        setcookie("cart", json_encode([]), time() + (86400 * 30), "/"); // 86400 = 1 day
+        setcookie("cart", json_encode([]), time() + (86400 * 30), "/");
         echo '<pre>';
         print_r($order);
         echo '</pre>';
@@ -123,14 +123,14 @@ class Cart extends Controller
         // $this->render('tour/detail', $this->data);
     }
 
-    public function fileupload()
-    {
-        $this->file->fileUpload('user/',"fileUpLoad");
-        $this->index();
-    }
+    // public function fileupload()
+    // {
+    //     $this->file->fileUpload('user/',);
+    //     $this->index();
+    // }
 
-    public function readfile($imgFolder, $imgName)
+    public function readfile($imgName)
     {
-        $this->file->getFileContent($imgFolder . '/' . $imgName);
+        $this->file->getFileContent('tour/' . $imgName);
     }
 }
