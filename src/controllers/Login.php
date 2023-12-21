@@ -14,21 +14,32 @@ class Login extends Controller
         $email = $_POST['email'];
         $password = $_POST['password'];
         $user = $this->model_user->findByEmail($email);
-        if (isset($user[0])) {
-            if ($password == $user[0]['password']) {
-                $_SESSION['id'] = $user[0]['id'];
-                $_SESSION['email'] = $user[0]['email'];
-                $_SESSION['role'] = $user[0]['role'];
-                Header("Location:" . _WEB_ROOT . "/home");
+        if ($email == '' && $password == '') {
+            $this->data['err_email'] = "Email is required";
+            $this->data['err_password'] = "Password is required";
+            $this->render('login/login', $this->data);
+        } else {
+            if (isset($user[0])) {
+                if ($password == '') {
+                    $this->data['err_email'] = "";
+                    $this->data['err_password'] = "Password is required";
+                    $this->render('login/login', $this->data);
+                } else {
+                    if (password_verify($password, $user[0]['password'])) {
+                        $_SESSION['id'] = $user[0]['id'];
+                        $_SESSION['role'] = $user[0]['role'];
+                        Header("Location:" . _WEB_ROOT . "/home");
+                    } else {
+                        $this->data['err_email'] = "";
+                        $this->data['err_password'] = "Wrong password";
+                        $this->render('login/login', $this->data);
+                    }
+                }
             } else {
-                $this->data['err_email'] = "";
-                $this->data['err_password'] = "Wrong password";
+                $this->data['err_email'] = "Email not exist";
+                $this->data['err_password'] = "";
                 $this->render('login/login', $this->data);
             }
-        } else {
-            $this->data['err_email'] = "Email not exist";
-            $this->data['err_password'] = "";
-            $this->render('login/login', $this->data);
         }
     }
 
