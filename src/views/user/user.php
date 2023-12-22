@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/src/views/user/style.css">
-    <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/css/responsive.css">
+    <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/src/views/user/responsive.css">
     <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/icon/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -18,7 +18,7 @@
             <!-- begin nav -->
             <ul id="nav">
                 <li><a href="<?php echo _WEB_ROOT; ?>/home">Home</a></li>
-                
+
             </ul>
             <!-- end nav -->
             <!-- mobile button -->
@@ -37,33 +37,84 @@
                 <div style="width: 100%; text-align: center;">Hello <?php echo $user_context['name'] ?></div>
             </div>
             <div class="menu-list">
-                <div id="info" class="menu-item menu-item-active" onclick="changeContent(1)"><i class="fa-solid fa-user"></i>&nbsp; USER INFOMATION</div>
-                <div id="order" class="menu-item" onclick="changeContent(2)"><i class="fa-solid fa-cart-shopping"></i>&nbsp; USER ORDER</div>
+                <div id="info" class="menu-item menu-item-active" onclick="changeContent(1)">
+                    <i class="fa-solid fa-user"></i>
+                    <span>USER</span>
+                </div>
+                <div id="order" class="menu-item" onclick="changeContent(2)">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>ORDER</span>
+                </div>
+                <div id="order" class="menu-item" onclick="changeContent(3)">
+                    <i class="fa-solid fa-ticket"></i>
+                    <span>TICKET</span>
+                </div>
                 <form class="menu-item" action="<?php echo _WEB_ROOT; ?>/user/logout" method="post">
-                    <button type="submit" name="runLink"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp; LOGOUT</button>
+                    <button type="submit" name="runLink">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <span>LOGOUT</span>
+                    </button>
                 </form>
             </div>
         </div>
         <div class="col-md-9 col-12 content-container" id="content-container">
             <div id="info-content">
-                USER INFOMATION
+                <h2>USER INFOMATION</h2>
                 <form method="post" action="<?php echo _WEB_ROOT; ?>/user/update">
-                    <input type="email" name="email" value="<?php echo $user_context['email'] ?>">
-                    <input type="password" name="password">
-                    <input type="text" name="name" value="<?php echo $user_context['name'] ?>">
-                    <input type="number" min="0" name="phone" value="<?php echo $user_context['phone'] ?>">
-                    <input type="text" name="address" value="<?php echo $user_context['address'] ?>">
-                    <button type="submit" class="btn-login">Save</button>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-6 user-form-item">
+                            <span>Email:</span>
+                            <input type="email" name="email" value="<?php echo $user_context['email'] ?>">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="user-form-item col-md-6">
+                            <span>Username:</span>
+                            <input type="text" name="name" value="<?php echo $user_context['name'] ?>">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="user-form-item col-md-6">
+                            <span>Phone:</span>
+                            <input type="number" min="0" name="phone" value="<?php echo $user_context['phone'] ?>">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="user-form-item col-md-6">
+                            <span>Address:</span>
+                            <input type="text" name="address" value="<?php echo $user_context['address'] ?>">
+                        </div>
+                        <div class="row d-flex justify-content-center">
+                        </div>
+                        <div class="user-form-item col-md-6 d-flex justify-content-end">
+                            <button class="btn" type="submit" style="background-color: #000; color: #fff;">Save</button>
+                        </div>
+                    </div>
                 </form>
-                <form action="<?php echo _WEB_ROOT ?>/user/change_avatar" method="post" enctype="multipart/form-data">
-                    Select image to upload:
-                    <input type="file" name="fileToUpload" id="fileToUpload">
-                    <input type="submit" value="Upload Image" name="submit">
+                <form class="p-3" action="<?php echo _WEB_ROOT . "/change/index/" . $user_context['reset_token'] ?>" method="post">
+                    <div class="row d-flex justify-content-center">
+                        <div class="user-form-item col-md-6 d-flex justify-content-start">
+                            <button class="btn" type="submit" style="background-color: #000; color: #fff;">Change password</button>
+                        </div>
+                    </div>
+                </form>
+                <form class="p-3" action="<?php echo _WEB_ROOT ?>/user/change_avatar" method="post" enctype="multipart/form-data">
+                    <div class="row d-flex justify-content-center">
+                        <div class="user-form-item col-md-6 d-flex justify-content-start">
+                            Select image to upload:
+                            <input type="file" name="fileToUpload" id="fileToUpload">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class=" col-md-6 d-flex justify-content-start">
+                            <input class="btn" type="submit" style="background-color: #000; color: #fff;" value="Upload Image" name="submit">
+                        </div>
+                    </div>
+
                 </form>
             </div>
             <div id="order-content">
                 USER ORDER
-
             </div>
         </div>
     </div>

@@ -8,10 +8,15 @@ class OrderManage extends Controller
     public $file;
     public function __construct()
     {
-        $this->file = new FileUpload();
-        $this->model_order = $this->model('OrderModel');
-        $this->model_user = $this->model('UserModel');
-        $this->model_ticket = $this->model('TicketModel');
+        if($_SESSION['role'] == "ROLE_ADMIN" || $_SESSION['role'] == "ROLE_MEMBER" && isset($_SESSION['id'])) {
+            $this->file = new FileUpload();
+            $this->model_order = $this->model('OrderModel');
+            $this->model_user = $this->model('UserModel');
+            $this->model_ticket = $this->model('TicketModel');
+        } else {
+            Header("Location: "._WEB_ROOT."/home");
+        }
+       
     }
 
     public function index()

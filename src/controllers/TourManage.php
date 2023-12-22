@@ -6,12 +6,17 @@ class TourManage extends Controller
     public $file;
     public function __construct()
     {
-        $this->file = new FileUpload();
-        $this->model_tour = $this->model('TourModel');
+        if($_SESSION['role'] == "ROLE_ADMIN" || $_SESSION['role'] == "ROLE_MEMBER" && isset($_SESSION['id'])) {
+            $this->file = new FileUpload();
+            $this->model_tour = $this->model('TourModel');
+        } else {
+            Header("Location: "._WEB_ROOT."/home");
+        }   
     }
 
     public function index()
     {
+
         $this->render('admin/tour',$this->data);
     }
     public function create() {
@@ -238,9 +243,16 @@ class TourManage extends Controller
                 $sub_array[] = $row["address"];
                 $sub_array[] = $row["date"];
                 $sub_array[] = $row["description"];
-                $sub_array[] = '<button type="button" name="view_tour" class="btn btn-info btn-sm view_tour" id="' . $row["id"] . '">View</button>';
-                $sub_array[] = '<button type="button" name="edit_tour" class="btn btn-primary btn-sm edit_tour" id="' . $row["id"] . '">Edit</button>';
-                $sub_array[] = '<button type="button" name="delete_tour" class="btn btn-danger btn-sm delete_tour" id="' . $row["id"] . '" disabled>Delete</button>';
+                if ($_SESSION['role'] == "ROLE_ADMIN") {
+                    $sub_array[] = '<button type="button" name="view_tour" class="btn btn-info btn-sm view_tour" id="' . $row["id"] . '">View</button>';
+                    $sub_array[] = '<button type="button" name="edit_tour" class="btn btn-primary btn-sm edit_tour" id="' . $row["id"] . '">Edit</button>';
+                    $sub_array[] = '<button type="button" name="delete_tour" class="btn btn-danger btn-sm delete_tour" id="' . $row["id"] . '">Delete</button>';   
+                } else {
+                    $sub_array[] = '<button type="button" name="view_tour" class="btn btn-info btn-sm view_tour" id="' . $row["id"] . '">View</button>';
+                    $sub_array[] = '<button type="button" name="edit_tour" class="btn btn-primary btn-sm edit_tour" id="' . $row["id"] . '" disabled>Edit</button>';
+                    $sub_array[] = '<button type="button" name="delete_tour" class="btn btn-danger btn-sm delete_tour" id="' . $row["id"] . '" disabled>Delete</button>';   
+                }
+                
                 $data1[] = $sub_array;
             }
             $output = array(

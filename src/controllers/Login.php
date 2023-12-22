@@ -33,7 +33,12 @@ class Login extends Controller
                     if (password_verify($password, $user[0]['password'])) {
                         $_SESSION['id'] = $user[0]['id'];
                         $_SESSION['role'] = $user[0]['role'];
-                        Header("Location:" . _WEB_ROOT . "/home");
+                        if ($user[0]['role'] == "ROLE_ADMIN" || $user[0]['role'] == "ROLE_MEMBER") {
+                            Header("Location:" . _WEB_ROOT . "/admin");
+                        } else {
+
+                            Header("Location:" . _WEB_ROOT . "/home");
+                        }
                     } else {
                         $this->data['err_email'] = "";
                         $this->data['err_password'] = "Wrong password";

@@ -5,8 +5,13 @@ class UserManage extends Controller
     public $file;
     public function __construct()
     {
-        $this->file = new FileUpload();
-        $this->model_user = $this->model('UserModel');
+        if($_SESSION['role'] == "ROLE_ADMIN" || $_SESSION['role'] == "ROLE_MEMBER" && isset($_SESSION['id'])) {
+            $this->file = new FileUpload();
+            $this->model_user = $this->model('UserModel');
+        } else {
+            Header("Location: "._WEB_ROOT."/home");
+        }
+        
     }
 
     public function index()
@@ -321,9 +326,16 @@ class UserManage extends Controller
                 $sub_array[] = $row["address"];
                 $sub_array[] = $row["phone"];
                 $sub_array[] = $row["role"];
-                $sub_array[] = '<button type="button" name="view_user" class="btn btn-info btn-sm view_user" id="' . $row["id"] . '">View</button>';
-                $sub_array[] = '<button type="button" name="edit_user" class="btn btn-primary btn-sm edit_user" id="' . $row["id"] . '">Edit</button>';
-                $sub_array[] = '<button type="button" name="delete_user" class="btn btn-danger btn-sm delete_user" id="' . $row["id"] . '" disabled>Delete</button>';
+                if ($_SESSION['role'] == "ROLE_MEMBER") {
+                    $sub_array[] = '<button type="button" name="view_user" class="btn btn-info btn-sm view_user" id="' . $row["id"] . '">View</button>';
+                    $sub_array[] = '<button type="button" name="edit_user" class="btn btn-primary btn-sm edit_user" id="' . $row["id"] . '" disabled>Edit</button>';
+                    $sub_array[] = '<button type="button" name="delete_user" class="btn btn-danger btn-sm delete_user" id="' . $row["id"] . '" disabled>Delete</button>';
+                } else {
+                    $sub_array[] = '<button type="button" name="view_user" class="btn btn-info btn-sm view_user" id="' . $row["id"] . '">View</button>';
+                    $sub_array[] = '<button type="button" name="edit_user" class="btn btn-primary btn-sm edit_user" id="' . $row["id"] . '">Edit</button>';
+                    $sub_array[] = '<button type="button" name="delete_user" class="btn btn-danger btn-sm delete_user" id="' . $row["id"] . '">Delete</button>';
+                }
+                
                 $data1[] = $sub_array;
             }
             $output = array(
