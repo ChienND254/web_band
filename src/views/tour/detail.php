@@ -27,7 +27,7 @@
         <div class="row">
             <!-- Bên trái: Ảnh của nơi diễn ra -->
             <div class="col-md-6">
-                <img src="path/to/event-image.jpg" alt="Nơi diễn ra" class="event-image">
+                <img src="<?php echo _WEB_ROOT."/tour/readfile/".$tour_detail['image'] ?>" alt="Nơi diễn ra" class="event-image">
             </div>
 
             <!-- Bên phải: Thông tin vé -->

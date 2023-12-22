@@ -77,7 +77,7 @@
 
         <?php foreach ($tour_list as $tour) { ?>
             <div class="card">
-                <img src="<?php echo _WEB_ROOT; ?>/public/assets/img/content/sanfran.jpg" alt="San Francisco" class="place-img">
+                <img src="<?php echo _WEB_ROOT."/tour/readfile/".$tour['image'] ?>" alt="San Francisco" class="place-img">
                 <div class="content">
                     <h3 class="place-heading"><?php echo $tour['address'] ?></h3>
                     <p class="place-time"><?php echo $tour['date'] ?></p>

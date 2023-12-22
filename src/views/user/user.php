@@ -131,21 +131,35 @@
                                 <td><?php echo $order_item['order_date']; ?></td>
                                 <td><?php echo $order_item['address']; ?></td>
                                 <td><?php echo $order_item['total_price']; ?>$</td>
-                                <td><button class="btn btn-primary" onclick="showModal(<?php $order_item ?>)">View</button></td>
+                                <td><button class="btn btn-primary" onclick="showModal()">View</button></td>
+                                <div id="modal-content">
+                                    <div class="d-flex justify-content-center">
+                                        <div style="width: 700px; height: 500px; background-color: #fff; margin-top: 100px; overflow-y: scroll; text-align: center;">
+                                            <div class="d-flex justify-content-end align-items-center" style="width: 100%; height: 50px; background-color: #000; color:#fff; font-size: 30px;">
+                                                <button style="width: 50px; height: 50px;" onclick="closeModal()">
+                                                    <i class="fa-solid fa-xmark"></i>
+                                                </button>
+                                            </div>
+                                            <div class=p-3>
+                                                <div class="d-flex" style="border: 1px solid #000; background-color: #000; color: #fff;">
+                                                    <div class=col-md-4>Ticket ID</div>
+                                                    <div class=col-md-4>Tour ID</div>
+                                                    <div class=col-md-4>Price</div>
+                                                </div>
+                                                <?php foreach ($order_item['order_line'] as $ticket) { ?>
+                                                    <div class="d-flex" style="border: 1px solid #000;">
+                                                        <div class=col-md-4><?php echo $ticket['id'] ?></div>
+                                                        <div class=col-md-4><?php echo $ticket['tour_id'] ?></div>
+                                                        <div class=col-md-4><?php echo $ticket['price'] ?></div>
+                                                    </div>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </tr>
                         <?php } ?>
                     </table>
-                    <div id="modal-content">
-                        <div class="d-flex justify-content-center">
-                            <div style="width: 700px; height: 500px; background-color: #fff; margin-top: 100px;">
-                                <div class="d-flex justify-content-end align-items-center" style="width: 100%; height: 50px; background-color: #000; color:#fff; font-size: 30px;">
-                                    <button style="width: 50px; height: 50px;" onclick="closeModal()">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div id="ticket-content">
@@ -163,7 +177,7 @@
                             foreach ($order_item['order_line'] as $ticket) { ?>
                                 <tr>
                                     <td><?php echo $ticket['id'] ?></td>
-                                    <td><?php echo $ticket['tour_id'];  ?></td>
+                                    <td><?php echo $ticket['tour_id'] ?></td>
                                     <td><?php echo $ticket['price'] ?>$</td>
                                     <td><a href="<?php echo _WEB_ROOT . "/tour/detail/" . $ticket['tour_id'] ?>" class="btn btn-primary">View</a></td>
                                 </tr>
@@ -208,13 +222,7 @@
             }
         }
 
-        function showDetail(data) {
-            var modal = document.getElementById("modal-content");
-            modal.style.display = "block";
-            console.log(data);
-        }
-
-        function showModal(id) {
+        function showModal() {
             var modal = document.getElementById("modal-content");
             modal.style.display = "block"
         }
@@ -223,7 +231,6 @@
             var modal = document.getElementById("modal-content");
             modal.style.display = "none";
         }
-        
     </script>
 
     <script>
