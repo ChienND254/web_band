@@ -26,6 +26,7 @@
                             <th>Ảnh</th>
                             <th>Địa chỉ</th>
                             <th>Ngày</th>
+                            <th>Thời gian diễn ra</th>
                             <th>Miêu tả</th>
                             <th>Xem</th>
                             <th>Sửa</th>
@@ -57,6 +58,16 @@
                         <label for="date" class="col-form-label">Ngày diễn ra<span class="text-danger">*</span></label>
                         <input id="tour_date" type="date" name="tour_date" class="form-control" required>
                         <span id="error_tour_date" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="time" class="col-form-label">Thời gian bắt đầu<span class="text-danger">*</span></label>
+                        <input id="tour_time" type="time" name="tour_time" class="form-control" required>
+                        <span id="error_tour_time" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="time_to" class="col-form-label">Thời gian kết thúc<span class="text-danger">*</span></label>
+                        <input id="tour_time_to" type="time" name="tour_time_to" lang="en" class="form-control" required>
+                        <span id="error_tour_time_to" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label for="address" class="col-form-label">Địa chỉ<span class="text-danger">*</span></label>
@@ -99,6 +110,16 @@
                         <label for="date" class="col-form-label">Ngày diễn ra<span class="text-danger">*</span></label>
                         <input id="tour_date_edit" type="date" name="tour_date" class="form-control" required>
                         <span id="error_tour_date" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="time" class="col-form-label">Thời gian bắt đầu<span class="text-danger">*</span></label>
+                        <input id="tour_time_edit" type="time" name="tour_time" class="form-control" required>
+                        <span id="error_tour_time_edit" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="time_to" class="col-form-label">Thời gian kết thúc<span class="text-danger">*</span></label>
+                        <input id="tour_time_to_edit" type="time" name="tour_time_to" lang="en" class="form-control" required>
+                        <span id="error_tour_time_to_edit" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label for="address" class="col-form-label">Địa chỉ<span class="text-danger">*</span></label>
@@ -154,6 +175,10 @@
                                 <td id="date"></td>
                             </tr>
                             <tr>
+                                <th>Thời gian diễn ra</th>
+                                <td id="time_tour"></td>
+                            </tr>
+                            <tr>
                                 <th>Miêu tả</th>
                                 <td id="description"></td>
                             </tr>
@@ -204,7 +229,7 @@
                 }
             },
             "columnDefs": [{
-                "targets": [1,2,4,5,6,7],
+                "targets": [1,4,5,6,7,8],
                 "orderable": false,
             }, ],
         });
@@ -278,6 +303,8 @@
             $('#error_tour_description_edit').text('');
             $('#error_tour_address_edit').text('');
             $('#error_tour_image_edit').text('');
+            $('#error_tour_time_edit').text('');
+            $('#error_tour_time_to_edit').text('');
         }
         $(document).on('click', '.view_tour', function() {
             tour_id = $(this).attr('id');
@@ -294,6 +321,7 @@
                     $('#date').text(data.tour_date);
                     $('#description').text(data.tour_description);
                     $('#address').text(data.tour_address);
+                    $('#time_tour').text(data.tour_time + " - " + data.tour_time_to);
                     $('#viewModal').modal('show');
                 }
             });
@@ -316,6 +344,8 @@
                     $('#tour_date_edit').val(data.tour_date);
                     $('#tour_description_edit').val(data.tour_description);
                     $('#tour_address_edit').val(data.tour_address);
+                    $('#tour_time_edit').val(data.tour_time);
+                    $('#tour_time_to_edit').val(data.tour_time_to);
                     $('#tour_image_current').html('<img src="' + data.tour_image + '" class="img-thumbnail" width="50" />');
                     $('#action_edit').val('Edit');
                     $('#editModal').modal('show');
@@ -364,6 +394,16 @@
                             $('#error_tour_image_edit').text(data.error_tour_image);
                         } else {
                             $('#error_tour_image_edit').text('');
+                        }
+                        if (data.error_tour_time != '') {
+                            $('#error_tour_time_edit').text(data.error_tour_time);
+                        } else {
+                            $('#error_tour_time_edit').text('');
+                        }
+                        if (data.error_tour_time_to != '') {
+                            $('#error_tour_time_to_edit').text(data.error_tour_time_to);
+                        } else {
+                            $('#error_tour_time_to_edit').text('');
                         }
                     }
                 }

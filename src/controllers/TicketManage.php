@@ -43,33 +43,6 @@ class TicketManage extends Controller
             } else {
                 $ticket_price = $_POST["ticket_price"];
             }
-
-            $ticket_quantity = "";
-            $error_ticket_quantity = "";
-            if (empty($_POST["ticket_quantity"])) {
-                $error_ticket_quantity = 'Số lượng bắt buộc';
-                $error++;
-            } else {
-                $ticket_price = $_POST["ticket_quantity"];
-            }
-            $ticket_time = "";
-            $error_ticket_time = "";
-                   
-            if (empty($_POST['ticket_time'])) {
-                $error_ticket_time = "Thời gian bắt đầu bắt buộc";
-                $error++;
-            } else {
-                $ticket_time = $_POST['ticket_time'];
-            }
-            $ticket_time_to = "";
-            $error_ticket_time_to = "";
-                   
-            if (empty($_POST['ticket_time_to'])) {
-                $error_ticket_time_to = "Thời gian kết thúc bắt buộc";
-                $error++;
-            } else {
-                $ticket_time_to = $_POST['ticket_time_to'];
-            }     
             
             $ticket_tour = "";
             $error_ticket_tour = "";
@@ -83,19 +56,13 @@ class TicketManage extends Controller
             if ($error > 0) {
                 $output = array(
                     'error'                         =>    true,
-                    'error_ticket_time'             =>    $error_ticket_time,
-                    'error_ticket_time_to'          =>    $error_ticket_time_to,
                     'error_ticket_price'            =>    $error_ticket_price,
-                    'error_ticket_tour'             =>    $error_ticket_tour,
-                    'error_ticket_quantity'         =>    $error_ticket_quantity
+                    'error_ticket_tour'             =>    $error_ticket_tour
                 );
             } else {
                 $data = array(
-                    'time'      => $ticket_time,
-                    'time_to'   => $ticket_time_to,
                     'price'     => $ticket_price,
-                    'tour_id'   => $ticket_tour,
-                    'quantity'   => $ticket_quantity
+                    'tour_id'   => $ticket_tour
                 );
                 if ($this->model_ticket->createModel($data)) {
                     $output = array(
@@ -131,48 +98,17 @@ class TicketManage extends Controller
                     $ticket_price = $_POST["ticket_price"];
                 }
             }
-            $ticket_quantity = "";
-            $error_ticket_quantity = "";
-            if (empty($_POST["ticket_quantity"])) {
-                $error_ticket_quantity = 'Số lượng bắt buộc';
-                $error++;
-            } else {
-                $ticket_quantity = $_POST["ticket_quantity"];
-            }
-            $ticket_time = "";
-            $error_ticket_time = "";
-                   
-            if (empty($_POST['ticket_time'])) {
-                $error_ticket_time = "Thời gian bắt đầu bắt buộc";
-                $error++;
-            } else {
-                $ticket_time = $_POST['ticket_time'];
-            }
-            $ticket_time_to = "";
-            $error_ticket_time_to = "";
-                   
-            if (empty($_POST['ticket_time'])) {
-                $error_ticket_time_to = "Thời gian kết thúc bắt buộc";
-                $error++;
-            } else {
-                $ticket_time_to = $_POST['ticket_time_to'];
-            }
+            
             
             
             if ($error > 0) {
                 $output = array(
                     'error'                         =>    true,
-                    'error_ticket_time'             =>    $error_ticket_time,
-                    'error_ticket_time_to'          =>     $error_ticket_time_to,
                     'error_ticket_price'            =>    $error_ticket_price,
-                    'error_ticket_quantity'         =>    $error_ticket_quantity
                 );
             } else {
                 $data = array(
-                    'time'      => $ticket_time,
-                    'time_to'   => $ticket_time_to,
                     'price'     => $ticket_price,
-                    'quantity'   => $ticket_quantity
 
                 );
                 if ($this->model_ticket->updateModel($id,$data)) {
@@ -212,7 +148,7 @@ class TicketManage extends Controller
                     ';
                 } elseif ($column == 1) {
                     $condition .= '
-                    ORDER BY address ' . $_POST['order']['0']['dir'] . '
+                    ORDER BY tour.address ' . $_POST['order']['0']['dir'] . '
                     ';
                 } elseif ($column == 3) {
                     $condition .= '
@@ -220,7 +156,7 @@ class TicketManage extends Controller
                     ';
                 } elseif ($column == 4) {
                     $condition .= '
-                    ORDER BY quantity ' . $_POST['order']['0']['dir'] . '
+                    ORDER BY status ' . $_POST['order']['0']['dir'] . '
                     ';
                 } elseif ($column == 5) {
                     $condition .= '
@@ -246,10 +182,8 @@ class TicketManage extends Controller
                 $sub_array[] = $row['address'];
                 $sub_array[] = '<img src="' . _WEB_ROOT . '/upload/tour/' . $row["image"] . '" class="img-thumbnail" width="75">';
                 $sub_array[] = $row["price"]."$";
-                $sub_array[] = $row["quantity"];
                 $sub_array[] = $row["status"];
                 $sub_array[] = $row["date"];
-                $sub_array[] = date('h:i a', strtotime($row["time"]))." - ". date('h:i a', strtotime($row["time_to"]));
                 $sub_array[] = $row["description"];
                 if ($_SESSION["role"] == "ROLE_ADMIN") {
                     $sub_array[] = '<button type="button" name="view_ticket" class="btn btn-info btn-sm view_ticket" id="' . $row["id"] . '">View</button>';
@@ -257,8 +191,8 @@ class TicketManage extends Controller
                     $sub_array[] = '<button type="button" name="delete_ticket" class="btn btn-danger btn-sm delete_ticket" id="' . $row["id"] . '">Delete</button>';
                 } else {
                     $sub_array[] = '<button type="button" name="view_ticket" class="btn btn-info btn-sm view_ticket" id="' . $row["id"] . '">View</button>';
-                $sub_array[] = '<button type="button" name="edit_ticket" class="btn btn-primary btn-sm edit_ticket" id="' . $row["id"] . '" disabled>Edit</button>';
-                $sub_array[] = '<button type="button" name="delete_ticket" class="btn btn-danger btn-sm delete_ticket" id="' . $row["id"] . '" disabled>Delete</button>';
+                    $sub_array[] = '<button type="button" name="edit_ticket" class="btn btn-primary btn-sm edit_ticket" id="' . $row["id"] . '" disabled>Edit</button>';
+                    $sub_array[] = '<button type="button" name="delete_ticket" class="btn btn-danger btn-sm delete_ticket" id="' . $row["id"] . '" disabled>Delete</button>';
                 }
                 
                 $data1[] = $sub_array;
@@ -283,7 +217,7 @@ class TicketManage extends Controller
                 $output['ticket_address'] = $row['address'];
                 $output['ticket_date'] = $row['date'];
                 $output['ticket_price'] = $row['price'];
-                $output['ticket_price'] = $row['price'];
+                $output['ticket_description'] = $row['description'];
                 $output['ticket_time'] = substr_replace($row["time"],"",5);
                 $output['ticket_time_to'] = substr_replace($row["time_to"],"",5);
             }

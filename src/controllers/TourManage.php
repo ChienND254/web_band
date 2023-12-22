@@ -16,7 +16,6 @@ class TourManage extends Controller
 
     public function index()
     {
-
         $this->render('admin/tour',$this->data);
     }
     public function create() {
@@ -58,6 +57,24 @@ class TourManage extends Controller
                     $error++;
                 }
             }
+            $tour_time = "";
+            $error_tour_time = "";
+                   
+            if (empty($_POST['tour_time'])) {
+                $error_tour_time = "Thời gian bắt đầu bắt buộc";
+                $error++;
+            } else {
+                $tour_time = $_POST['tour_time'];
+            }
+            $tour_time_to = "";
+            $error_tour_time_to = "";
+                   
+            if (empty($_POST['tour_time'])) {
+                $error_tour_time_to = "Thời gian kết thúc bắt buộc";
+                $error++;
+            } else {
+                $tour_time_to = $_POST['tour_time_to'];
+            }
             $error_tour_image = "";
             $tour_image = "";
             $result = $this->file->fileUpload("tour/","tour_image");
@@ -77,14 +94,18 @@ class TourManage extends Controller
                     'error_tour_date'             =>    $error_tour_date,
                     'error_tour_description'      =>    $error_tour_description,
                     'error_tour_address'          =>    $error_tour_address,
-                    'error_tour_image'            =>    $error_tour_image
+                    'error_tour_image'            =>    $error_tour_image,
+                    'error_tour_time'             =>    $error_tour_time,
+                    'error_tour_time_to'          =>    $error_tour_time_to
                 );
             } else {
                 $data = array(
-                    'address' => $tour_address,
-                    'date' => $tour_date,
-                    'description' => $tour_description,
-                    'image'  =>  $tour_image
+                    'address'       => $tour_address,
+                    'date'          => $tour_date,
+                    'description'   => $tour_description,
+                    'image'         => $tour_image,
+                    'time'          => $tour_time,
+                    'time_to'       => $tour_time_to
                 );
 
                 if ($this->model_tour->createModel($data)) {
@@ -140,6 +161,24 @@ class TourManage extends Controller
                     $error++;
                 }
             }
+            $tour_time = "";
+            $error_tour_time = "";
+                   
+            if (empty($_POST['tour_time'])) {
+                $error_tour_time = "Thời gian bắt đầu bắt buộc";
+                $error++;
+            } else {
+                $tour_time = $_POST['tour_time'];
+            }
+            $tour_time_to = "";
+            $error_tour_time_to = "";
+                   
+            if (empty($_POST['tour_time'])) {
+                $error_tour_time_to = "Thời gian kết thúc bắt buộc";
+                $error++;
+            } else {
+                $tour_time_to = $_POST['tour_time_to'];
+            }
             $error_tour_image = "";
             $tour_image = "";
             if ($_FILES['tour_image']['name'] != "") {
@@ -164,21 +203,27 @@ class TourManage extends Controller
                     'error_tour_date'             =>    $error_tour_date,
                     'error_tour_description'      =>    $error_tour_description,
                     'error_tour_address'          =>    $error_tour_address,
-                    'error_tour_image'            =>    $error_tour_image
+                    'error_tour_image'            =>    $error_tour_image,
+                    'error_tour_time'             =>    $error_tour_time,
+                    'error_tour_time_to'          =>    $error_tour_time_to
                 );
             } else {
                 if ($tour_image != "") {
                     $data = array(
-                        'address' => $tour_address,
-                        'date' => $tour_date,
-                        'description' => $tour_description,
-                        'image'  =>  $tour_image
+                        'address'        => $tour_address,
+                        'date'           => $tour_date,
+                        'description'    => $tour_description,
+                        'image'          =>  $tour_image,
+                        'time'           => $tour_time,
+                        'time_to'        => $tour_time_to
                     );
                 } else {
                     $data = array(
-                        'address' => $tour_address,
-                        'date' => $tour_date,
-                        'description' => $tour_description,
+                        'address'       => $tour_address,
+                        'date'          => $tour_date,
+                        'description'   => $tour_description,
+                        'time'          => $tour_time,
+                        'time_to'       => $tour_time_to
                     );
                 }
                 
@@ -210,13 +255,17 @@ class TourManage extends Controller
         if ($_POST['action'] == 'fetch') {
             $condition = " ";
             if (!empty($_POST["search"]["value"])) {
-                $condition = 'WHERE tour.address LIKE "%' . $_POST["search"]["value"] . '%" OR tour.date LIKE "%' . $_POST["search"]["value"] . '%" OR tour.date LIKE "%' . $_POST["search"]["value"] . '%" ';
+                $condition = 'WHERE tour.address LIKE "%' . $_POST["search"]["value"] . '%" OR tour.date LIKE "%' . $_POST["search"]["value"] . '%" ';
             }
             if (isset($_POST["order"])) {
                 $column = $_POST['order']['0']['column'];
                 if ($column == "0") {
                     $condition .= '
                     ORDER BY 1 ' . $_POST['order']['0']['dir'] . '
+                    ';
+                } elseif ($column == 2) {
+                    $condition .= '
+                    ORDER BY address ' . $_POST['order']['0']['dir'] . '
                     ';
                 } elseif ($column == 3) {
                     $condition .= '
@@ -242,6 +291,7 @@ class TourManage extends Controller
                 $sub_array[] = '<img src="' . _WEB_ROOT . '/upload/tour/' . $row["image"] . '" class="img-thumbnail" width="75">';
                 $sub_array[] = $row["address"];
                 $sub_array[] = $row["date"];
+                $sub_array[] = date('h:i a', strtotime($row["time"]))." - ". date('h:i a', strtotime($row["time_to"]));
                 $sub_array[] = $row["description"];
                 if ($_SESSION['role'] == "ROLE_ADMIN") {
                     $sub_array[] = '<button type="button" name="view_tour" class="btn btn-info btn-sm view_tour" id="' . $row["id"] . '">View</button>';
@@ -275,6 +325,8 @@ class TourManage extends Controller
                 $output['tour_address'] = $row['address'];
                 $output['tour_date'] = $row['date'];
                 $output['tour_description'] = $row['description'];
+                $output['tour_time'] = $row['time'];
+                $output['tour_time_to'] = $row['time_to'];
             }
             echo json_encode($output);
         }

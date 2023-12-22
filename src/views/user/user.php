@@ -45,7 +45,7 @@
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span>ORDER</span>
                 </div>
-                <div id="order" class="menu-item" onclick="changeContent(3)">
+                <div id="ticket" class="menu-item" onclick="changeContent(3)">
                     <i class="fa-solid fa-ticket"></i>
                     <span>TICKET</span>
                 </div>
@@ -114,7 +114,63 @@
                 </form>
             </div>
             <div id="order-content">
-                USER ORDER
+                <h2>MY ORDER</h2>
+                <div style="height: 100%; overflow-y: scroll;">
+                    <table class="mt-3" border="1" style="width: 100%; text-align: center;">
+                        <tr style=" background-color: #000; color:#fff">
+                            <!-- Thẻ <th> đại diện cho đầu cột hoặc đầu hàng -->
+                            <th class="col-md-2">Order ID</th>
+                            <th class="col-md-3">Order date</th>
+                            <th class="col-md-3">Address</th>
+                            <th class="col-md-2">Price</th>
+                            <th class="col-md-2"></th>
+                        </tr>
+                        <?php foreach ($order as $order_item) { ?>
+                            <tr>
+                                <td><?php echo $order_item['id']; ?></td>
+                                <td><?php echo $order_item['order_date']; ?></td>
+                                <td><?php echo $order_item['address']; ?></td>
+                                <td><?php echo $order_item['total_price']; ?>$</td>
+                                <td><button class="btn btn-primary" onclick="showModal(<?php $order_item ?>)">View</button></td>
+                            </tr>
+                        <?php } ?>
+                    </table>
+                    <div id="modal-content">
+                        <div class="d-flex justify-content-center">
+                            <div style="width: 700px; height: 500px; background-color: #fff; margin-top: 100px;">
+                                <div class="d-flex justify-content-end align-items-center" style="width: 100%; height: 50px; background-color: #000; color:#fff; font-size: 30px;">
+                                    <button style="width: 50px; height: 50px;" onclick="closeModal()">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="ticket-content">
+                <h2>MY TICKET</h2>
+                <div style="height: 100%; overflow-y: scroll;">
+                    <table class="mt-3" border="1" style="width: 100%; text-align: center;">
+                        <tr style=" background-color: #000; color:#fff">
+                            <!-- Thẻ <th> đại diện cho đầu cột hoặc đầu hàng -->
+                            <th class="col-md-2">Ticket ID</th>
+                            <th class="col-md-3">Tour ID</th>
+                            <th class="col-md-2">Price</th>
+                            <th class="col-md-2"></th>
+                        </tr>
+                        <?php foreach ($order as $order_item) {
+                            foreach ($order_item['order_line'] as $ticket) { ?>
+                                <tr>
+                                    <td><?php echo $ticket['id'] ?></td>
+                                    <td><?php echo $ticket['tour_id'];  ?></td>
+                                    <td><?php echo $ticket['price'] ?>$</td>
+                                    <td><a href="<?php echo _WEB_ROOT . "/tour/detail/" . $ticket['tour_id'] ?>" class="btn btn-primary">View</a></td>
+                                </tr>
+                        <?php }
+                        } ?>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -124,20 +180,50 @@
             var content = document.getElementById("content-container")
             var info = document.getElementById("info");
             var order = document.getElementById("order");
+            var ticket = document.getElementById("ticket")
             var infoContent = document.getElementById("info-content");
             var orderContent = document.getElementById("order-content");
+            var ticketContent = document.getElementById("ticket-content");
             if (idContent == 1) {
                 infoContent.style.display = "block"
                 orderContent.style.display = "none"
+                ticketContent.style.display = "none"
                 info.classList.add('menu-item-active');
                 order.classList.remove('menu-item-active');
+                ticket.classList.remove('menu-item-active');
             } else if (idContent == 2) {
                 infoContent.style.display = "none"
+                ticketContent.style.display = "none"
                 orderContent.style.display = "block"
                 info.classList.remove('menu-item-active');
+                ticket.classList.remove('menu-item-active');
                 order.classList.add('menu-item-active');
+            } else if (idContent == 3) {
+                infoContent.style.display = "none"
+                ticketContent.style.display = "block"
+                orderContent.style.display = "none"
+                info.classList.remove('menu-item-active');
+                order.classList.remove('menu-item-active');
+                ticket.classList.add('menu-item-active');
             }
         }
+
+        function showDetail(data) {
+            var modal = document.getElementById("modal-content");
+            modal.style.display = "block";
+            console.log(data);
+        }
+
+        function showModal(id) {
+            var modal = document.getElementById("modal-content");
+            modal.style.display = "block"
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("modal-content");
+            modal.style.display = "none";
+        }
+        
     </script>
 
     <script>

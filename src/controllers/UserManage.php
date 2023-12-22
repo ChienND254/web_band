@@ -223,7 +223,10 @@ class UserManage extends Controller
                     $error++;
                 }
             }
-            
+            $role = "ROLE_ADMIN";
+            if(!empty($_POST['user_role'])) {
+                $role = $_POST['user_role'];
+            }
             if ($error > 0) {
                 $output = array(
                     'error'                       =>    true,
@@ -236,24 +239,22 @@ class UserManage extends Controller
             } else {
                 if ($user_image != "") {
                     $data = array(
-                        'password' => password_hash($user_psw1, PASSWORD_DEFAULT),
-                        'name' => $user_name,
-                        'phone' => $user_phone,
-                        'address' => $user_address,
-                        'role' => $_POST['user_role'],
-                        'image'  =>  $user_image 
+                        'password'      => password_hash($user_psw1, PASSWORD_DEFAULT),
+                        'name'          => $user_name,
+                        'phone'         => $user_phone,
+                        'address'       => $user_address,
+                        'role'          => $role,
+                        'image'         =>  $user_image 
                     );
                 } else {
                     $data = array(
-                        'password' => password_hash($user_psw1, PASSWORD_DEFAULT),
-                        'name' => $user_name,
-                        'phone' => $user_phone,
-                        'address' => $user_address,
-                        'role' => $_POST['user_role'],
+                        'password'      => password_hash($user_psw1, PASSWORD_DEFAULT),
+                        'name'          => $user_name,
+                        'phone'         => $user_phone,
+                        'address'       => $user_address,
+                        'role'          => $role,
                     );
                 }
-                
-
                 if ($this->model_user->updateModel($id,$data)) {
                     $output = array(
                         'success'        =>    'Thay đổi thành công',

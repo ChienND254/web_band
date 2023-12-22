@@ -6,14 +6,9 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-9 font-weight-bold">DANH SÁCH VÉ</div>
-                <?php if($_SESSION['role'] == "ROLE_ADMIN") {
-                    ?>
                  <div class="col-md-3" align="right">
                     <button type="button" id="add_button" class="btn btn-success btn-sm">Thêm vé</button>
                 </div>
-                <?php
-                }
-                    ?>
             </div>
         </div>
         <div class="card-body">
@@ -26,10 +21,8 @@
                             <th>Địa chỉ tour</th>
                             <th>Ảnh Tour</th>
                             <th>Giá vé</th>
-                            <th>Số lượng</th>
                             <th>Tình trạng</th>
                             <th>Ngày</th>
-                            <th>Thời gian diễn ra</th>
                             <th>Miêu tả</th>
                             <th>Xem</th>
                             <th>Sửa</th>
@@ -65,21 +58,6 @@
                         <span id="error_ticket_tour" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
-                        <label for="time" class="col-form-label">Thời gian bắt đầu<span class="text-danger">*</span></label>
-                        <input id="ticket_time" type="time" name="ticket_time" class="form-control" required>
-                        <span id="error_ticket_time" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="time_to" class="col-form-label">Thời gian kết thúc<span class="text-danger">*</span></label>
-                        <input id="ticket_time_to" type="time" name="ticket_time_to" class="form-control" required>
-                        <span id="error_ticket_time_to" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="quantity" class="col-form-label">Số lượng vé<span class="text-danger">*</span></label>
-                        <input id="ticket_quantity" type="number" name="ticket_quantity" class="form-control" required>
-                        <span id="error_ticket_quantity" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
                         <label for="price" class="col-form-label">Giá($)<span class="text-danger">*</span></label>
                         <input id="ticket_price" type="number" name="ticket_price" class="form-control" required>
                         <span id="error_ticket_price" class="text-danger"></span>
@@ -105,21 +83,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="time" class="col-form-label">Thời gian bắt đầu<span class="text-danger">*</span></label>
-                        <input id="ticket_time_edit" type="time" name="ticket_time" class="form-control" required>
-                        <span id="error_ticket_time_edit" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="time_to" class="col-form-label">Thời gian kết thúc<span class="text-danger">*</span></label>
-                        <input id="ticket_time_to_edit" type="time" name="ticket_time_to" lang="en" class="form-control" required>
-                        <span id="error_ticket_time_to_edit" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="quantity" class="col-form-label">Số lượng vé<span class="text-danger">*</span></label>
-                        <input id="ticket_quantity_edit" type="number" name="ticket_quantity" class="form-control" required>
-                        <span id="error_ticket_quantity_edit" class="text-danger"></span>
-                    </div>
+                   
                     <div class="mb-3">
                         <label for="price" class="col-form-label">Giá/Vé ($)<span class="text-danger">*</span></label>
                         <input id="ticket_price_edit" type="number" name="ticket_price" class="form-control" required>
@@ -219,15 +183,13 @@
                 }
             },
             "columnDefs": [{
-                "targets": [2, 6,7,8,9,10],
+                "targets": [2, 6,7,8,9],
                 "orderable": false,
             }, ],
         });
 
         function clear_field() {
             $('#add_ticket_form')[0].reset();
-            $('#error_ticket_time').text('');
-            $('#error_ticket_time_to').text('');
             $('#error_ticket_tour').text('');          
             $('#error_ticket_price').text('');
         }
@@ -273,16 +235,6 @@
                         } else {
                             $('#error_ticket_price').text('');
                         }
-                        if (data.error_ticket_time != '') {
-                            $('#error_ticket_time').text(data.error_ticket_time);
-                        } else {
-                            $('#error_ticket_time').text('');
-                        }
-                        if (data.error_ticket_time_to != '') {
-                            $('#error_ticket_time_to').text(data.error_ticket_time_to);
-                        } else {
-                            $('#error_ticket_time_to').text('');
-                        }
                         if (data.error_ticket_tour != '') {
                             $('#error_ticket_tour').text(data.error_ticket_tour);
                         } else {
@@ -294,14 +246,6 @@
 
         });
         var ticket_id = '';
-        function clear_field_edit() {
-            $('#edit_ticket_form')[0].reset();
-            $('#error_ticket_name_edit').text('');
-            $('#error_ticket_password1_edit').text('');
-            $('#error_ticket_address_edit').text('');
-            $('#error_ticket_phone_edit').text('');
-            $('#error_ticket_image_edit').text('');
-        }
         $(document).on('click', '.view_ticket', function() {
             ticket_id = $(this).attr('id');
             $("#message_operation").text("");
@@ -369,30 +313,10 @@
                         table.ajax.reload();
                     }
                     if (data.error) {
-                        if (data.error_ticket_name != '') {
-                            $('#error_ticket_name_edit').text(data.error_ticket_name);
+                        if (data.error_ticket_price != '') {
+                            $('#error_ticket_price_edit').text(data.error_ticket_price);
                         } else {
-                            $('#error_ticket_name_edit').text('');
-                        }
-                        if (data.error_ticket_password1 != '') {
-                            $('#error_ticket_password1_edit').text(data.error_ticket_password1);
-                        } else {
-                            $('#error_ticket_password1_edit').text('');
-                        }
-                        if (data.error_ticket_phone != '') {
-                            $('#error_ticket_phone_edit').text(data.error_ticket_phone);
-                        } else {
-                            $('#error_ticket_phone_edit').text('');
-                        }
-                        if (data.error_ticket_address != '') {
-                            $('#error_ticket_address_edit').text(data.error_ticket_address);
-                        } else {
-                            $('#error_ticket_address_edit').text('');
-                        }
-                        if (data.error_ticket_image != '') {
-                            $('#error_ticket_image_edit').text(data.error_ticket_image);
-                        } else {
-                            $('#error_ticket_image_edit').text('');
+                            $('#error_ticket_price_edit').text('');
                         }
                     }
                 }

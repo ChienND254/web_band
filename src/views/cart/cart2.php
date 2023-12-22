@@ -89,8 +89,11 @@
                     <tbody>
                         <?php foreach ($cart_list as $cart) { ?>
                             <tr>
-                                <td style="display: flex; align-items: left;"><img style="width:70px" src="<?php echo _WEB_ROOT?>/cart/readfile/<?php echo $cart['tour_id']['img_url']?>" alt=""></td>
-                                <td><input style="width: 50px; outline: none;" type="number" value="<?php echo $cart['quantity']?>" min="0"></td>
+                                <td style="display: flex; align-items: left;">
+                                    <img style="width:70px" src="<?php echo _WEB_ROOT ?>/cart/readfile/<?php echo $cart['tour_id']['img_url'] ?>" alt="">
+                                    <div style="line-height: 70px; padding-left: 30px;"><?php echo $cart['tour_id']['address'] ?></div>
+                                </td>
+                                <td><input style="width: 50px; outline: none;" type="number" value="<?php echo $cart['quantity'] ?>" min="0"></td>
                                 <td>
                                     <p><span><?php echo $cart['quantity'] * $cart['tour_id']['price'] ?></span></p>
                                 </td>
@@ -100,7 +103,14 @@
                     </tbody>
                 </table>
                 <div style="text-align: right;" class="price-total">
-                    <p style="font-weight: bold; margin-top: 20px"> Sum:<span>0</span>$</p>
+                    <p style="font-weight: bold; margin-top: 20px"> Sum:<span>
+                            <?php $sum = 0;
+                            foreach ($cart_list as $cart) {
+                                $sum += $cart['quantity'] * $cart['tour_id']['price'];
+                            }
+                            echo $sum;
+                            ?>
+                        </span>$</p>
                 </div>
                 <button type="submit"> Done </button>
             </form>
