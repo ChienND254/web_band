@@ -7,9 +7,13 @@ class TicketManage extends Controller
     public $file;
     public function __construct()
     {
-        $this->file = new FileUpload();
-        $this->model_tour = $this->model('TourModel');
-        $this->model_ticket = $this->model('TicketModel');
+        if($_SESSION['role'] == "ROLE_ADMIN" || $_SESSION['role'] == "ROLE_MEMBER" && isset($_SESSION['id'])) {
+            $this->file = new FileUpload();
+            $this->model_tour = $this->model('TourModel');
+            $this->model_ticket = $this->model('TicketModel');
+        } else {
+            Header("Location: "._WEB_ROOT."/home");
+        }
     }
 
     public function index()
@@ -247,9 +251,16 @@ class TicketManage extends Controller
                 $sub_array[] = $row["date"];
                 $sub_array[] = date('h:i a', strtotime($row["time"]))." - ". date('h:i a', strtotime($row["time_to"]));
                 $sub_array[] = $row["description"];
-                $sub_array[] = '<button type="button" name="view_ticket" class="btn btn-info btn-sm view_ticket" id="' . $row["id"] . '">View</button>';
-                $sub_array[] = '<button type="button" name="edit_ticket" class="btn btn-primary btn-sm edit_ticket" id="' . $row["id"] . '">Edit</button>';
+                if ($_SESSION["role"] == "ROLE_ADMIN") {
+                    $sub_array[] = '<button type="button" name="view_ticket" class="btn btn-info btn-sm view_ticket" id="' . $row["id"] . '">View</button>';
+                    $sub_array[] = '<button type="button" name="edit_ticket" class="btn btn-primary btn-sm edit_ticket" id="' . $row["id"] . '">Edit</button>';
+                    $sub_array[] = '<button type="button" name="delete_ticket" class="btn btn-danger btn-sm delete_ticket" id="' . $row["id"] . '">Delete</button>';
+                } else {
+                    $sub_array[] = '<button type="button" name="view_ticket" class="btn btn-info btn-sm view_ticket" id="' . $row["id"] . '">View</button>';
+                $sub_array[] = '<button type="button" name="edit_ticket" class="btn btn-primary btn-sm edit_ticket" id="' . $row["id"] . '" disabled>Edit</button>';
                 $sub_array[] = '<button type="button" name="delete_ticket" class="btn btn-danger btn-sm delete_ticket" id="' . $row["id"] . '" disabled>Delete</button>';
+                }
+                
                 $data1[] = $sub_array;
             }
             $output = array(

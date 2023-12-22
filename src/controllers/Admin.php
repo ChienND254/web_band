@@ -11,10 +11,11 @@ class Admin extends Controller
 
     public function index()
     {
-        // $dataList  = $this->model_admin->getList();
-        // $this->data['tour_list'] = $dataList;
-        $this->render('admin/admin',$this->data);
-        // $this->model_admin = $this->delete(2);
+        if($_SESSION['role'] == "ROLE_ADMIN" || $_SESSION['role'] == "ROLE_MEMBER" && isset($_SESSION['id'])) {
+
+            $this->render('admin/admin',$this->data);
+        } else {
+            Header("Location: "._WEB_ROOT."/home");
+        }
     }
-    public function user() {}
 }

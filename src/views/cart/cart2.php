@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,25 +8,26 @@
     <!-- <script src="https://kit. fontawesome.com/54f0cb7e4a.js" .crossorigin="anonymous"></script> -->
     <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/src/views/cart/style.css">
 </head>
+
 <body>
     <div class="cart-icon">
         <!-- <p><i class="fa-solid fa-cart-shopping"></i><span>390.000</span><sup>đ</sup></p> -->
     </div>
     <div>
         <div id="wrapper">
-        <div id="header">
-            <ul id="nav">
-                <li><a href="<?php echo _WEB_ROOT; ?>/home">Home</a></li>
-                <!-- <li><a href="">Band</a></li>
+            <div id="header">
+                <ul id="nav">
+                    <li><a href="<?php echo _WEB_ROOT; ?>/home">Home</a></li>
+                    <!-- <li><a href="">Band</a></li>
                 <li><a href="">Tour</a></li>
                 <li><a href="">Contact</a></li>
                 <li>
                     <a href="#">More</a>
                 </li> -->
-            </ul>
+                </ul>
+            </div>
         </div>
-    </div>
-    <section class="product">
+        <!-- <section class="product">
         <div class="container">
             <div class="product-items">
                 <div class="product-item">
@@ -71,42 +73,41 @@
                 
             </div>
         </div>
-    </section>
-    <section class = "cart">
-        <h2>Cart</h2>
-        <form action="">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Money/Ticket</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- <tr>
-                        <td style="display: flex; align-items: left;"><img style = "width:70px" src="https://scontent.fhan15-1.fna.fbcdn.net/v/t1.15752-9/386868896_376247001458963_2782217720888175581_n.png?_nc_cat=102&ccb=1-7&_nc_sid=8cd0a2&_nc_ohc=WeSmUeCtnvMAX98skRE&_nc_ht=scontent.fhan15-1.fna&oh=03_AdTbeP6aRN_p4pCFCO07899TgmGhS-8GepoC1O0SUSYXqg&oe=65A7309A" alt=""></td>
-                        <td><input style="width: 50px; outline: none;" type="number" value="1" min = "0"></td>
-                        <td><p><span>320.000</span></p></td>
-                        <td style="cursor: pointer;">Xóa</td>
-                    </tr>   
-                    <tr>
-                        <td style="display: flex; align-items: left;"><img style = "width:70px" src="C:/Users/admin/OneDrive/Pictures/Hoàng hôn_ (10).jpg"></td>
-                        <td><input style="width: 50px; outline: none;" type="number" value="1" min = "0"></td>
-                        <td><p><span>370.000</span></p></td>
-                        <td style="cursor: pointer;">Xóa</td>
-                    </tr> -->
-                </tbody>
-            </table>
-            <div style="text-align: right;" class="price-total">
-                <p style="font-weight: bold; margin-top: 20px"> Sum:<span>0</span>$</p>
-            </div>
-            <button> Done </button>
-        </form>
-    </section>
+    </section> -->
+        <section class="cart">
+            <h2>Cart</h2>
+            <form action="<?php echo _WEB_ROOT; ?>/cart/create" method="post">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Money</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($cart_list as $cart) { ?>
+                            <tr>
+                                <td style="display: flex; align-items: left;"><img style="width:70px" src="<?php echo _WEB_ROOT?>/cart/readfile/<?php echo $cart['tour_id']['img_url']?>" alt=""></td>
+                                <td><input style="width: 50px; outline: none;" type="number" value="<?php echo $cart['quantity']?>" min="0"></td>
+                                <td>
+                                    <p><span><?php echo $cart['quantity'] * $cart['tour_id']['price'] ?></span></p>
+                                </td>
+                                <td style="cursor: pointer;">Xóa</td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+                <div style="text-align: right;" class="price-total">
+                    <p style="font-weight: bold; margin-top: 20px"> Sum:<span>0</span>$</p>
+                </div>
+                <button type="submit"> Done </button>
+            </form>
+        </section>
     </div>
-    
+
     <script src="./src/views/cart/script.js"></script>
 </body>
+
 </html>

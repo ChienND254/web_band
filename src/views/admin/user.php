@@ -6,9 +6,15 @@ include('include/header.php');
         <div class="card-header">
             <div class="row">
                 <div class="col-md-9 font-weight-bold text-uppercase">Danh sách người dùng</div>
-                <div class="col-md-3" align="right">
+                <?php if($_SESSION['role'] == "ROLE_ADMIN") {
+                    ?>
+                 <div class="col-md-3" align="right">
                     <button type="button" id="add_button" class="btn btn-success btn-sm">Thêm người dùng</button>
                 </div>
+                <?php
+                }
+                    ?>
+               
             </div>
         </div>
         <div class="card-body">

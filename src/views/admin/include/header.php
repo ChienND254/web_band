@@ -27,7 +27,7 @@
     
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">WEB_BAND</a>
+            <a class="navbar-brand" href="<?=_WEB_ROOT?>/home">WEB_BAND</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -47,6 +47,12 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= _WEB_ROOT ?>/orderManage">Quản lý đơn hàng</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= _WEB_ROOT ?>/user/logout">ChangePassword</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= _WEB_ROOT ?>/user/logout">LogOut</a>
                     </li>
                 </ul>
             </div>
