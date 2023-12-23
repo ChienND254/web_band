@@ -159,7 +159,6 @@ class OrderManage extends Controller
                 $output .= '<tr>
                         <td>'.$row['ticket_id'].'</td>
                         <td>'.$row['price'].'$</td>
-                        <td>'.$this->model_ticket->getDetailModel($row['ticket_id'])['time'].' - '.$this->model_ticket->getDetailModel($row['ticket_id'])['time'].'</td>
                         <td>'.$row['quantity'].'</td>
                         <td>'.$row['quantity']*$row['price'].'$</td>
                     </tr>';

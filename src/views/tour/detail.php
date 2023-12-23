@@ -27,12 +27,12 @@
         <div class="row">
             <!-- Bên trái: Ảnh của nơi diễn ra -->
             <div class="col-md-6">
-                <img src="<?php echo _WEB_ROOT."/tour/readfile/".$tour_detail['image'] ?>" alt="Nơi diễn ra" class="event-image">
+                <img src="<?php echo _WEB_ROOT . "/tour/readfile/" . $tour_detail['image'] ?>" alt="Nơi diễn ra" class="event-image">
             </div>
 
             <!-- Bên phải: Thông tin vé -->
             <div class="col-md-6">
-                <div class="event-details">
+                <form class="event-details" method="post" action="<?php echo _WEB_ROOT ."/tour/addCart"?>">
                     <h2><?php echo $tour_detail['address'] ?></h2>
                     <p><?php echo $tour_detail['date'] ?></p>
                     <p><?php echo $tour_detail['description'] ?></p>
@@ -41,27 +41,17 @@
                     <div class="form-group">
                         <label for="ticketQuantity">Số lượng vé:</label>
                         <div class="input-group">
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-danger btn-number" data-type="minus" data-field="ticketQuantity">
-                                    <span class="glyphicon glyphicon-minus">-</span>
-                                </button>
-                            </span>
-                            <input type="text" name="ticketQuantity" class="form-control input-number" value="1" min="1" max="10">
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="ticketQuantity">
-                                    <span class="glyphicon glyphicon-plus">+</span>
-                                </button>
-                            </span>
+                            <input type="number" name="quantity" class="form-control input-number" value="1" min="1" max="<?php echo $num_ticket ?>">
+                            <input type="hidden" name="tour_id" value="<?php echo $tour_detail['id'] ?>">
                         </div>
                     </div>
 
                     <!-- Hiển thị số vé còn lại trong kho -->
-                    <p>Số vé còn lại: 100</p>
+                    <p>Số vé còn lại: <span id="num-ticket"><?php echo $num_ticket ?></span></p>
 
                     <!-- Nút giỏ hàng và thanh toán -->
-                    <button type="button" class="btn btn-primary">Thêm vào giỏ hàng</button>
-                    <button type="button" class="btn btn-success">Thanh toán</button>
-                </div>
+                    <button id="add_cart" type="submit" class="btn btn-primary">Thêm vào giỏ hàng</button>
+                </form>
             </div>
         </div>
     </div>
@@ -73,26 +63,14 @@
 
     <!-- Custom JavaScript for number input -->
     <script>
-        $(document).ready(function() {
-            $('.btn-number').click(function(e) {
-                e.preventDefault();
-
-                var fieldName = $(this).attr('data-field');
-                var type = $(this).attr('data-type');
-                var input = $("input[name='" + fieldName + "']");
-                var currentVal = parseInt(input.val());
-
-                if (!isNaN(currentVal)) {
-                    if (type == 'minus') {
-                        input.val(currentVal > 1 ? currentVal - 1 : 1);
-                    } else if (type == 'plus') {
-                        input.val(currentVal < 10 ? currentVal + 1 : 10);
-                    }
-                } else {
-                    input.val(1);
-                }
-            });
-        });
+        const btnAddCart = document.getElementById("add_cart");
+        const numTicket = document.getElementById("num-ticket");
+        console.log(numTicket.innerHTML)
+        if(numTicket.innerHTML==0) {
+            btnAddCart.disabled = true;
+            btnAddCart.style.backgroundColor="red";
+            btnAddCart.innerHTML="Sold out";
+        }
     </script>
 
 </body>

@@ -32,14 +32,16 @@ class Cart extends Controller
         //     ]
         // ]), time() + (86400 * 30), "/");
 
+        $dataUser  = $this->model_user->getDetailModel($_SESSION['id']);
         $cart = json_decode($_COOKIE['cart'], true);
         for ($i = 0; $i < sizeof($cart); $i++) {
             $cart[$i]['tour_id'] = $this->model_tour->getDetailModel($cart[$i]['tour_id']);
         }
 
         $this->data['cart_list'] = $cart;
+        $this->data['user_context'] = $dataUser;
 
-        $this->render('cart/cart2', $this->data);
+        $this->render('cart/cart', $this->data);
     }
 
     public function create()
@@ -65,6 +67,7 @@ class Cart extends Controller
             'order_date' => $formattedDateTime,
             'user_id' => $dataUser['id'],
             'total_price' => array_sum($totalPrice),
+            'status' => 0
         ];
         $this->model_order->createModel($dataOrder);
         $order = ($this->model_order->getLastModel())[0];
@@ -81,9 +84,7 @@ class Cart extends Controller
         }
 
         setcookie("cart", json_encode([]), time() + (86400 * 30), "/");
-        echo '<pre>';
-        print_r($order);
-        echo '</pre>';
+        Header("Location:"._WEB_ROOT."/payment");
     }
 
     public function update($id)

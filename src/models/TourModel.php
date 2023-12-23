@@ -1,5 +1,6 @@
 <?php
-class TourModel extends Model{
+class TourModel extends Model
+{
     protected $_table = 'tour';
 
     public function __construct()
@@ -19,7 +20,7 @@ class TourModel extends Model{
 
     public function deleteModel($id)
     {
-        return parent::delete_row($this->_table, $id);
+        return parent::delete($this->_table, $id);
     }
 
     public function getListModel($condition = '')
@@ -30,5 +31,13 @@ class TourModel extends Model{
     public function getDetailModel($id)
     {
         return parent::findById($this->_table, $id);
+    }
+
+    public function getNumTicket($id)
+    {
+        return parent::querySQL("SELECT COUNT(*) as number FROM tour 
+        left join ticket on tour.id = ticket.tour_id
+        WHERE ticket.status = 'IN_STOCK' and tour.id = $id
+        GROUP by tour.id;");
     }
 }

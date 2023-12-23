@@ -170,6 +170,7 @@
                             <!-- Thẻ <th> đại diện cho đầu cột hoặc đầu hàng -->
                             <th class="col-md-2">Ticket ID</th>
                             <th class="col-md-3">Tour ID</th>
+                            <th class="col-md-2">Order ID</th>
                             <th class="col-md-2">Price</th>
                             <th class="col-md-2"></th>
                         </tr>
@@ -178,6 +179,7 @@
                                 <tr>
                                     <td><?php echo $ticket['id'] ?></td>
                                     <td><?php echo $ticket['tour_id'] ?></td>
+                                    <td><?php print_r($order_item['id'])  ?></td>
                                     <td><?php echo $ticket['price'] ?>$</td>
                                     <td><a href="<?php echo _WEB_ROOT . "/tour/detail/" . $ticket['tour_id'] ?>" class="btn btn-primary">View</a></td>
                                 </tr>

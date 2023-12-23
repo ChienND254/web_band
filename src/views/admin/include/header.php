@@ -49,9 +49,6 @@
                         <a class="nav-link" href="<?= _WEB_ROOT ?>/orderManage">Quản lý đơn hàng</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= _WEB_ROOT ?>/user/logout">ChangePassword</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="<?= _WEB_ROOT ?>/user/logout">LogOut</a>
                     </li>
                 </ul>

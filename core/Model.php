@@ -80,4 +80,9 @@ class Model extends Database
         }
         return false;
     }
+    public function querySQL($condition)
+    {
+        $query = $this->db->query($condition);
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
