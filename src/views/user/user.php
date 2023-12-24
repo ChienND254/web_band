@@ -164,12 +164,14 @@
             </div>
             <div id="ticket-content">
                 <h2>MY TICKET</h2>
+                
                 <div style="height: 100%; overflow-y: scroll;">
                     <table class="mt-3" border="1" style="width: 100%; text-align: center;">
                         <tr style=" background-color: #000; color:#fff">
                             <!-- Thẻ <th> đại diện cho đầu cột hoặc đầu hàng -->
+                            <th class="col-md-1">Tour</th>
+                            <th class="col-md-3"></th>
                             <th class="col-md-2">Ticket ID</th>
-                            <th class="col-md-3">Tour ID</th>
                             <th class="col-md-2">Order ID</th>
                             <th class="col-md-2">Price</th>
                             <th class="col-md-2"></th>
@@ -177,16 +179,19 @@
                         <?php foreach ($order as $order_item) {
                             foreach ($order_item['order_line'] as $ticket) { ?>
                                 <tr>
+                                    <td><img style="width: 100px; height: 100px;padding: 10px;" src="<?php echo _WEB_ROOT; ?>/tour/readfile/<?php echo $ticket['tour_id']['image'] ?>" alt=""></td>
+                                    <!-- <td><?php echo _WEB_ROOT; ?>/user/readfile/<?php echo $ticket['tour_id']['image'] ?></td> -->
+                                    <td><?php echo $ticket['tour_id']['address'] ?></td>
                                     <td><?php echo $ticket['id'] ?></td>
-                                    <td><?php echo $ticket['tour_id'] ?></td>
                                     <td><?php print_r($order_item['id'])  ?></td>
                                     <td><?php echo $ticket['price'] ?>$</td>
-                                    <td><a href="<?php echo _WEB_ROOT . "/tour/detail/" . $ticket['tour_id'] ?>" class="btn btn-primary">View</a></td>
+                                    <td><a href="<?php echo _WEB_ROOT . "/tour/detail/" . $ticket['tour_id']['id'] ?>" class="btn btn-primary">View</a></td>
                                 </tr>
                         <?php }
                         } ?>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>

@@ -12,7 +12,7 @@ class payment_vnpay
         $vnp_TxnRef = $order_id; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = $order_id;
         $vnp_OrderType = '250000';
-        $vnp_Amount = $order_price * 100;
+        $vnp_Amount = $order_price * 1000;
         $vnp_Locale = 'vn';
         $vnp_BankCode = '';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];

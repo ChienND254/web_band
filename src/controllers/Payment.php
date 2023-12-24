@@ -4,9 +4,13 @@ class Payment extends Controller
     public $data = [];
     public $file;
     public $model_order;
+    public $model_ticket;
+    public $model_order_line;
     public function __construct()
     {
         $this->model_order = $this->model('OrderModel');
+        $this->model_ticket = $this->model('TicketModel');
+        $this->model_order_line = $this->model('OrderLineModel');
     }
 
     public function index()
@@ -30,7 +34,20 @@ class Payment extends Controller
                 $data = array(
                     'status' => 1,
                 );
+                $data_ticket = [
+                    'status' => "OUT_OF_STOCK",
+                ];
                 $this->model_order->updateModel($order_id,$data);
+                $order = $this->model_order->getLastModel();
+                foreach ($order as $row) {
+                    $result = $this->model_order_line->getListModel("WHERE order_id=".$row["id"]);
+                }
+                foreach ($result as $row) {
+                    $this->model_ticket->updateModel($row['ticket_id'],$data_ticket);
+                }
+                $mail = new MailSender();
+                $mail->sendMail($_SESSION['email'], 'Thanh toán đơn hàng', 'Thanh toán thành công');
+
                 $this->render('payment/success_payment');
             } else {
                 $this->render('payment/fail_payment');

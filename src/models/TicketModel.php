@@ -36,4 +36,8 @@ class TicketModel extends Model{
     {
         return parent::findAll($this->_table, "WHERE tour_id = ".$id." AND status = 'IN_STOCK' LIMIT ".$quantity);
     }
+    public function getLastModel()
+    {
+        return parent::findAll($this->_table, 'ORDER BY id DESC LIMIT 1;');
+    }
 }

@@ -137,7 +137,7 @@ class OrderManage extends Controller
                 $sub_array[] = $row["order_date"];
                 $sub_array[] = $row['email'];
                 $sub_array[] = $row["total_price"]."$";
-                $sub_array[] = "Đã thanh toán";
+                $sub_array[] = $row["status"] ? "Đã thanh toán" : "Chưa thanh toán";
                 $sub_array[] = '<button type="button" name="view_order" class="btn btn-info btn-sm view_order" id="' . $row["id"] . '">View</button>';
                 $data1[] = $sub_array;
             }
@@ -154,7 +154,7 @@ class OrderManage extends Controller
     public function detail($id) {
         if ($_POST['action'] == "single_fetch") {
             $dataDetail  = $this->model_order->getListModel("INNER JOIN order_line ON order_table.id = order_line.order_id WHERE order_line.order_id = ".$id);
-            $output = "<tr><th>Mã vé</th><th>Giá vé</th><th>Thời gian</th><th>Số lượng</th><th>Tổng tiền</th></tr>";
+            $output = "<tr><th>Mã vé</th><th>Giá vé</th><th>Số lượng</th><th>Tổng tiền</th></tr>";
             foreach ($dataDetail as $row) {   
                 $output .= '<tr>
                         <td>'.$row['ticket_id'].'</td>

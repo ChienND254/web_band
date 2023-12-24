@@ -106,7 +106,7 @@
                             <div class="place-body">
                                 <h3 class="place-heading"><?php echo $tour_list[$i]['address'] ?></h3>
                                 <p class="place-time"><?php echo $tour_list[$i]['date'] ?></p>
-                                <p class="place-decs"><?php echo $tour_list[$i]['description'] ?></p>
+                                <p class="place-decs" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis; "><?php echo $tour_list[$i]['description'] ?></p>
                                 <a href="<?php echo _WEB_ROOT . "/tour/detail/" . $tour_list[$i]['id'] ?>" class="place-buy-btn js-buy-ticket s-full-width ">Buy Tickets</a>
                             </div>
                         </div>
@@ -165,9 +165,6 @@
             <a href=""><i class="ti-twitter"></i></a>
             <a href=""><i class="ti-linkedin"></i></a>
         </div>
-        <p class="copy-right">
-            Powered by <a href=""> w3.css</a>
-        </p>
     </div>
     </div>
 

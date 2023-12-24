@@ -29,9 +29,9 @@ class User extends Controller
                 $dataOrder[$i]['order_line'] = $this->model_order_line->getListModel("WHERE order_id = " . $dataOrder[$i]['id']);
                 for ($j = 0; $j < sizeof($dataOrder[$i]['order_line']); $j++) {
                     $dataOrder[$i]['order_line'][$j] = $this->model_ticket->getDetailModel($dataOrder[$i]['order_line'][$j]['ticket_id']);
+                    $dataOrder[$i]['order_line'][$j]['tour_id'] = $this->model_tour->getDetailModel($dataOrder[$i]['order_line'][$j]['tour_id']);
                 }
             }
-
 
             // $this->data['cart_list'] = $cart;
 
@@ -92,3 +92,4 @@ class User extends Controller
         $this->file->getFileContent('user/' . $imgName);
     }
 }
+

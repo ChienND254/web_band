@@ -83,6 +83,6 @@ class Home extends Controller
         <p>Name: ' . $name . '</p>
         <p>Message: ' . $message . '</p>
         ');
-        $this->render('home/index', $this->data);
+        Header("Location:" ._WEB_ROOT."/home");
     }
 }

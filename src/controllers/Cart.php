@@ -47,7 +47,6 @@ class Cart extends Controller
             $ticket[$i] = $this->model_ticket->getTicketInStock($cart[$i]['tour_id'], $cart[$i]['quantity']);
             $totalPrice[$i] = 0;
             for ($j = 0; $j < sizeof($ticket[$i]); $j++) {
-                $ticket[$i][$j]['status'] = 'OUT_OF_STOCK';
                 $totalPrice[$i] = $totalPrice[$i] + $ticket[$i][$j]['price'];
                 $this->model_ticket->updateModel($ticket[$i][$j]['id'], $ticket[$i][$j]);
             }
@@ -61,6 +60,7 @@ class Cart extends Controller
             'order_date' => $formattedDateTime,
             'user_id' => $dataUser['id'],
             'total_price' => array_sum($totalPrice),
+            'status' => 0
         ];
         $this->model_order->createModel($dataOrder);
         $order = ($this->model_order->getLastModel())[0];
@@ -77,7 +77,7 @@ class Cart extends Controller
         }
 
         setcookie("cart", json_encode([]), time() + (86400 * 30), "/");
-        Header("Location:"._WEB_ROOT."/payment");
+        Header("Location: "._WEB_ROOT."/payment");
     }
     public function readfile($imgName)
     {

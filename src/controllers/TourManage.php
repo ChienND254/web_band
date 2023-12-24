@@ -144,7 +144,7 @@ class TourManage extends Controller
                 $error_tour_description = 'Miêu tả bắt buộc';
                 $error++;
             } else {
-                $tour_description = substr($_POST["tour_description"], 0, 50);
+                $tour_description = substr($_POST["tour_description"], 0, 200);
             }
 
             $tour_date = "";

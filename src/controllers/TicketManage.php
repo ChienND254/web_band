@@ -33,16 +33,6 @@ class TicketManage extends Controller
         }
         if ($_POST['action'] == "Add") {    
             $error = 0;
-
-            $data["tour"] = $this->model_tour->getListModel();
-            $ticket_price = "";
-            $error_ticket_price = "";
-            if (empty($_POST["ticket_price"])) {
-                $error_ticket_price = 'Giá tiền bắt buộc';
-                $error++;
-            } else {
-                $ticket_price = $_POST["ticket_price"];
-            }
             
             $ticket_tour = "";
             $error_ticket_tour = "";
@@ -56,12 +46,11 @@ class TicketManage extends Controller
             if ($error > 0) {
                 $output = array(
                     'error'                         =>    true,
-                    'error_ticket_price'            =>    $error_ticket_price,
                     'error_ticket_tour'             =>    $error_ticket_tour
                 );
             } else {
                 $data = array(
-                    'price'     => $ticket_price,
+                    'price'     => $this->model_tour->getDetailModel($ticket_tour)["price"],
                     'tour_id'   => $ticket_tour
                 );
                 for ($i = 0 ; $i < $_POST['ticket_quantity']; $i++) {
@@ -187,7 +176,6 @@ class TicketManage extends Controller
                 $sub_array[] = $row["price"]."$";
                 $sub_array[] = $row["status"];
                 $sub_array[] = $row["date"];
-                $sub_array[] = $row["description"];
                 if ($_SESSION["role"] == "ROLE_ADMIN") {
                     $sub_array[] = '<button type="button" name="view_ticket" class="btn btn-info btn-sm view_ticket" id="' . $row["id"] . '">View</button>';
                     $sub_array[] = '<button type="button" name="edit_ticket" class="btn btn-primary btn-sm edit_ticket" id="' . $row["id"] . '">Edit</button>';

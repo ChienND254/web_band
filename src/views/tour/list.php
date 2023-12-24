@@ -123,7 +123,7 @@
                 <div class="content">
                     <h3 class="place-heading"><?php echo $tour['address'] ?></h3>
                     <p class="place-time"><?php echo $tour['date'] ?></p>
-                    <p class="place-decs"><?php echo $tour['description'] ?></p>
+                    <p class="place-decs"style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis; "><?php echo $tour['description'] ?></p>
                     <!-- <form action="<?php echo _WEB_ROOT . "/tour/detail/$tour[id]" ?>" <button class="buy-ticket">Buy Tickets</button> </form> -->
 
                     <a href="<?php echo _WEB_ROOT . "/tour/detail/$tour[id]" ?>" style="color: #fff;text-decoration: none;">

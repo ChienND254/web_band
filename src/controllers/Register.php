@@ -28,7 +28,8 @@ class Register extends Controller
         $address = $_POST['address'];
         $password = $_POST['password'];
         $confirmPassword = $_POST['confirm_password'];
-
+        $token = bin2hex(random_bytes(16));
+        $mail = new MailSender();
         $this->data['err_name'] = "";
         $this->data['err_phone'] = "";
         $this->data['err_email'] = "";
@@ -37,6 +38,12 @@ class Register extends Controller
         $this->data['err_confirm_password'] = "";
 
         $err_validate = [];
+        $err_validate['err_name'] = "";
+        $err_validate['err_phone'] = "";
+        $err_validate['err_email'] = "";
+        $err_validate['err_address'] = "";
+        $err_validate['err_password'] = "";
+        $err_validate['err_confirm_password'] = "";
 
         if ($name == '') {
             $err_validate['err_name'] = "Name is required";
@@ -58,8 +65,12 @@ class Register extends Controller
         } else if ($confirmPassword != $password) {
             $err_validate['err_confirm_password'] = "Password and Confirm Password do not match";
         }
-
-        if (sizeof($err_validate) == 0) {
+        if ($err_validate['err_name'] == ''
+        && $err_validate['err_phone'] == ''
+        && $err_validate['err_email'] == ''
+        && $err_validate['err_address'] == ''
+        && $err_validate['err_password'] == ''
+        && $err_validate['err_confirm_password'] == '' ) {
             $currentDateTime = new DateTime();
             $formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
             $options = [
@@ -73,9 +84,12 @@ class Register extends Controller
                 'address' => $address,
                 'role' => 'ROLE_USER',
                 'create_date' => $formattedDateTime,
+                'token' => $token,
+                'active' => 0
             ];
+            $mail->sendMail($email,'Verify Email','Kich vao duong link kich hoat: '._WEB_ROOT.'/register/verify_email/'.$email);
             $this->model_user->createModel($data_request);
-            Header("Location:" . _WEB_ROOT . "/login");
+            Header("Location: "._WEB_ROOT."/login");
         } else {
             $this->data['err_name'] = $err_validate['err_name'];
             $this->data['err_phone'] = $err_validate['err_phone'];
@@ -88,21 +102,18 @@ class Register extends Controller
         // $user = $this->model_user->findByEmail($email);
     }
 
-    public function fileupload()
-    {
-        $file = new FileUpload();
-        return $file->fileUpload('user/');
-    }
-
     public function readfile($imgFolder, $imgName)
     {
         $file = new FileUpload();
         return $file->getFileContent($imgFolder.'/'.$imgName);
     }
 
-    public function send_mail()
+    public function verify_email($email)
     {
-        $mail = new MailSender();
-        return $mail->sendMail('nguyenbavietanh_t65@hus.edu.vn','scs','cs');
+        $data=[
+            'active' => 1
+        ];
+        $this->model_user->updateModel($this->model_user->findByEmail($email)[0]['id'],$data);
+        Header("Location: "._WEB_ROOT."/home");
     }
-}   
+}

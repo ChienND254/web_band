@@ -11,7 +11,7 @@ class Login extends Controller
 
     public function authenticate()
     {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST' ) {
             Header("Location:" . _WEB_ROOT . "/login");
             die;
         }
@@ -24,19 +24,20 @@ class Login extends Controller
             $this->data['err_password'] = "Password is required";
             $this->render('login/login', $this->data);
         } else {
-            if (isset($user[0])) {
+            if (isset($user[0]) && $user[0]['active']) {
                 if ($password == '') {
                     $this->data['err_email'] = "";
                     $this->data['err_password'] = "Password is required";
                     $this->render('login/login', $this->data);
+                    
                 } else {
                     if (password_verify($password, $user[0]['password'])) {
                         $_SESSION['id'] = $user[0]['id'];
                         $_SESSION['role'] = $user[0]['role'];
+                        $_SESSION['email'] = $user[0]['email'];
                         if ($user[0]['role'] == "ROLE_ADMIN" || $user[0]['role'] == "ROLE_MEMBER") {
                             Header("Location:" . _WEB_ROOT . "/admin");
                         } else {
-
                             Header("Location:" . _WEB_ROOT . "/home");
                         }
                     } else {
@@ -46,7 +47,7 @@ class Login extends Controller
                     }
                 }
             } else {
-                $this->data['err_email'] = "Email not exist";
+                $this->data['err_email'] = "Email not exist or Email haven't active";
                 $this->data['err_password'] = "";
                 $this->render('login/login', $this->data);
             }

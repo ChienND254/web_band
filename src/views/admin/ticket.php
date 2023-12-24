@@ -23,7 +23,6 @@
                             <th>Giá vé</th>
                             <th>Tình trạng</th>
                             <th>Ngày</th>
-                            <th>Miêu tả</th>
                             <th>Xem</th>
                             <th>Sửa</th>
                             <th>Xóa</th>
@@ -56,11 +55,6 @@
                             <option value="">Select Tour</option>
                         </select>
                         <span id="error_ticket_tour" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="price" class="col-form-label">Giá($)<span class="text-danger">*</span></label>
-                        <input id="ticket_price" type="number" name="ticket_price" class="form-control" required>
-                        <span id="error_ticket_price" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label for="quantity_ticket" class="col-form-label">Số vé<span class="text-danger">*</span></label>
@@ -155,13 +149,13 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h4 class="modal-title"><span class="text-danger">Xóa người dùng</span></h4>
+                <h4 class="modal-title"><span class="text-danger">Xóa vé</span></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
-                <h3 align="center">Bạn có chắc chắn xóa người dùng?</h3>
+                <h3 align="center">Bạn có chắc chắn xóa vé?</h3>
             </div>
 
             <!-- Modal footer -->
@@ -187,7 +181,7 @@
                 }
             },
             "columnDefs": [{
-                "targets": [2, 6,7,8,9],
+                "targets": [2, 6,7,8],
                 "orderable": false,
             }, ],
         });
@@ -227,7 +221,7 @@
                 },
                 success: function(data) {
                     $('#button_action').attr('disabled', false);
-                    $('#button_action').val("Thêm người vé");
+                    $('#button_action').val("Thêm vé");
                     if (data.success) {
                         $('#message_operation').html('<div class="alert alert-success">' + data.success + '</div>');
                         $('#myModal').modal('hide');

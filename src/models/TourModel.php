@@ -40,4 +40,8 @@ class TourModel extends Model
         WHERE ticket.status = 'IN_STOCK' and tour.id = $id
         GROUP by tour.id;");
     }
+    public function getLastModel()
+    {
+        return parent::findAll($this->_table, 'ORDER BY id DESC LIMIT 1;');
+    }
 }
