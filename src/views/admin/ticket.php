@@ -62,6 +62,10 @@
                         <input id="ticket_price" type="number" name="ticket_price" class="form-control" required>
                         <span id="error_ticket_price" class="text-danger"></span>
                     </div>
+                    <div class="mb-3">
+                        <label for="quantity_ticket" class="col-form-label">Số vé<span class="text-danger">*</span></label>
+                        <input id="quantity_ticket" type="number" name="ticket_quantity" class="form-control" required>
+                    </div>
 
                 </div>
                 <div class="modal-footer">

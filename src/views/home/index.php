@@ -41,7 +41,7 @@
             </div>
 
             <!-- search button -->
-            
+
             <a class="search-btn" href="<?php echo _WEB_ROOT; ?>/cart">
                 <i class="fa-solid fa-cart-shopping search-icon" style="color:#fff"></i>
             </a>
@@ -51,7 +51,7 @@
             <a class="search-btn" href="<?php echo _WEB_ROOT; ?>/tour/list" style="text-decoration: none;">
                 <div class="search-icon ti-search"></div>
             </a>
-            
+
         </div>
     </div>
 
@@ -93,27 +93,27 @@
 
                 <!-- tickets-list -->
                 <ul class="tickets-list">
-                    <li>September <span class="sold-out">Sold Out</span></li>
-                    <li>September <span class="sold-out">Sold Out</span></li>
-                    <li>October <span class="quatily text-whith">3</span></li>
+                    <li>New York <span class="sold-out">Sold Out</span></li>
+                    <li>Paris <span class="sold-out">Sold Out</span></li>
+                    <li>San Francisco <span class="quatily text-whith">3</span></li>
                 </ul>
 
                 <!-- place -->
                 <div class="place-list">
                     <?php for ($i = 0; $i < 3; $i++) { ?>
                         <div class="place-item">
-                            <img src="<?php echo _WEB_ROOT."/tour/readfile/".$tour_list[$i]['image'] ?>" alt="San Francisco" class="place-img">
+                            <img src="<?php echo _WEB_ROOT . "/tour/readfile/" . $tour_list[$i]['image'] ?>" alt="San Francisco" class="place-img">
                             <div class="place-body">
                                 <h3 class="place-heading"><?php echo $tour_list[$i]['address'] ?></h3>
                                 <p class="place-time"><?php echo $tour_list[$i]['date'] ?></p>
                                 <p class="place-decs"><?php echo $tour_list[$i]['description'] ?></p>
-                                <a href="<?php echo _WEB_ROOT."/tour/detail/".$tour_list[$i]['id'] ?>" class="place-buy-btn js-buy-ticket s-full-width ">Buy Tickets</a>
+                                <a href="<?php echo _WEB_ROOT . "/tour/detail/" . $tour_list[$i]['id'] ?>" class="place-buy-btn js-buy-ticket s-full-width ">Buy Tickets</a>
                             </div>
                         </div>
                     <?php } ?>
                 </div>
                 <div style="display: flex; justify-content: end; margin-top:10px">
-                    <a href="<?php echo _WEB_ROOT."/tour/list"?>" style="color: #fff;">Show more</a>
+                    <a href="<?php echo _WEB_ROOT . "/tour/list" ?>" style="color: #fff;">Show more</a>
                 </div>
             </div>
         </div>
@@ -130,7 +130,7 @@
                     <p><i class="ti-email"></i>Email: <a href="mailto:mail@mail.com">nguyenbavietanh2002@mail.com</a></p>
                 </div>
                 <div class="col col-half s-col-full contact-form">
-                    <form action="<?php echo _WEB_ROOT;?>/home/send_mail" method="post">
+                    <form action="<?php echo _WEB_ROOT; ?>/home/send_mail" method="post">
                         <div class="row">
                             <div class="col col-half s-col-full">
                                 <input type="text" placeholder="Name" required name="name" id="" class="from-control">
@@ -207,31 +207,6 @@
     </div>
 
     <script>
-        // const buyBtns = document.querySelectorAll('.js-buy-ticket')
-        // const modal = document.querySelector('.modal')
-        // const modalclose = document.querySelector('.modal-close')
-        // const modalcontainer = document.querySelector('.modal-container')
-
-
-        // function showBuyTickets() {
-        //     modal.classList.add('open')
-        // }
-
-        // function hiddenBuyTickets() {
-        //     modal.classList.remove('open')
-        // }
-
-        // for (const buyBtn of buyBtns) {
-        //     buyBtn.addEventListener('click', showBuyTickets)
-        // }
-
-        // modalclose.addEventListener('click', hiddenBuyTickets)
-
-        // modal.addEventListener('click', hiddenBuyTickets)
-
-        // modalcontainer.addEventListener('click', function(event) {
-        //     event.stopPropagation()
-        // })
     </script>
 
     <script>

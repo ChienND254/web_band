@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/css/styles.css">
+    <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/css/styles.css">
     <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/css/responsive.css">
     <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/icon/themify-icons/themify-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <title>Danh Sách Vé</title>
@@ -74,29 +74,48 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000;">
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="<?php echo _WEB_ROOT . "#" ?>">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo _WEB_ROOT . "#band" ?>">Band</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo _WEB_ROOT . "#tour" ?>">Tour</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo _WEB_ROOT . "#contract" ?>">Contact</a>
+    <div id="main">
+        <div id="header">
+            <!-- begin nav -->
+            <ul id="nav">
+                <li><a href="<?php echo _WEB_ROOT; ?>/home">Home</a></li>
+                <li><a href="#band">Band</a></li>
+                <li><a href="#tour">Tour</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li>
+                    <a href="#">
+                        More
+                        <i class="nav-icon ti-angle-down"></i>
+                    </a>
+                    <ul class="subnav">
+                        <li><a href="#">Merchandise</a></li>
+                        <li><a href="#">Extras</a></li>
+                        <li><a href="#">Media</a></li>
+                    </ul>
                 </li>
             </ul>
+            <!-- end nav -->
+
+            <!-- mobile button -->
+            <div id="mobile-menu" class="mobile-menu-btn">
+                <i class="menu-icon ti-menu"></i>
+            </div>
+
+            <!-- search button -->
+
+            <a class="search-btn" href="<?php echo _WEB_ROOT; ?>/cart">
+                <i class="fa-solid fa-cart-shopping search-icon" style="color:#fff"></i>
+            </a>
+            <a class="search-btn" href="<?php echo _WEB_ROOT; ?>/user">
+                <i class="fa-solid fa-user search-icon" style="color:#fff"></i>
+            </a>
+            <a class="search-btn" href="<?php echo _WEB_ROOT; ?>/tour/list" style="text-decoration: none;">
+                <div class="search-icon ti-search"></div>
+            </a>
+
         </div>
-    </nav>
-    <div class="container">
+    </div>
+    <div class="container mt-5">
 
         <?php foreach ($tour_list as $tour) { ?>
             <div class="card">

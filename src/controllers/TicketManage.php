@@ -64,15 +64,18 @@ class TicketManage extends Controller
                     'price'     => $ticket_price,
                     'tour_id'   => $ticket_tour
                 );
-                if ($this->model_ticket->createModel($data)) {
-                    $output = array(
-                        'success'        =>    'Tạo vé thành công',
-                    );
-                } else {
-                    $output = array(
-                        'error'     =>    true
-                    );
+                for ($i = 0 ; $i < $_POST['ticket_quantity']; $i++) {
+                    if ($this->model_ticket->createModel($data)) {
+                        $output = array(
+                            'success'        =>    'Tạo vé thành công',
+                        );
+                    } else {
+                        $output = array(
+                            'error'     =>    true
+                        );
+                    }
                 }
+                
             }
             echo json_encode($output);
         }
@@ -200,7 +203,7 @@ class TicketManage extends Controller
             $output = array(
                 "draw"                =>    intval($_POST["draw"]),
                 "recordsTotal"        =>    $filtered_rows,
-                "recordsFiltered"     =>     count($this->model_tour->getListModel()),
+                "recordsFiltered"     =>    count($this->model_ticket->getListModel()),
                 "data"                =>    $data1
             );
             // print_r($_POST);

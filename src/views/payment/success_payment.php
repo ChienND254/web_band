@@ -6,6 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    Thanh toán thành công
+    <h1>
+        Thanh toán thành công
+    </h1>
+    <a href="<?=_WEB_ROOT?>/home">Quay lại trang chủ</a>
 </body>
 </html>

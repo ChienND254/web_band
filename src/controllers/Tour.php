@@ -44,6 +44,9 @@ class Tour extends Controller
 
     public function addCart()
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            die;
+        }
         $tourID = $_POST["tour_id"];
         $quantity = $_POST["quantity"];
         $cart = json_decode($_COOKIE['cart'], true);
